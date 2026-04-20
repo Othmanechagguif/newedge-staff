@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>NewEdge Staff</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#1A1008;--dark2:#2C1A0E;--terra:#B5533C;--tl:#F5EAE6;--gold:#C9A84C;--gl:#FAF4E4;--green:#3D7A5A;--greenl:#E6F4ED;--red:#C0392B;--redl:#FAEAE8;--blue:#2A6496;--bluel:#E6EFF8;--orange:#E67E22;--orangel:#FDF2E9;--purple:#6B4FA8;--sur:#fff;--sur2:#F5F4F0;--gray:#A09488;--grayl:#E8E3DC;--mid:#6B5B4E;--r:16px;--rsm:10px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;font-family:'DM Sans',sans-serif;background:var(--dark);overflow-x:hidden;-webkit-text-size-adjust:100%}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,select,textarea{font-family:inherit}
+
+/* ── SCREENS ── */
+.screen{display:none;min-height:100vh;flex-direction:column}
+.screen.act{display:flex;animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ══ WIFI CHECK SCREEN ══ */
+#wifi-screen{background:var(--dark);align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.wifi-logo{width:76px;height:76px;background:var(--terra);border-radius:22px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;animation:pop .6s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+.wifi-logo svg{width:38px;height:38px}
+.wifi-brand{font-family:'DM Serif Display',serif;font-size:26px;color:#fff}
+.wifi-sub{font-size:11px;color:rgba(255,255,255,.35);letter-spacing:2.5px;text-transform:uppercase;margin-top:4px}
+.wifi-icon-big{font-size:72px;margin:32px 0 16px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.wifi-title{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;line-height:1.3}
+.wifi-desc{font-size:13px;color:rgba(255,255,255,.45);margin-top:10px;line-height:1.6;max-width:320px}
+.wifi-checking{display:none;margin-top:28px}
+.wifi-spinner{width:44px;height:44px;border:3px solid rgba(255,255,255,.1);border-top-color:var(--terra);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wifi-check-txt{font-size:13px;color:rgba(255,255,255,.5)}
+.wifi-error{display:none;margin-top:20px;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.3);border-radius:12px;padding:14px 18px}
+.wifi-error-t{font-size:14px;font-weight:600;color:#E87070;margin-bottom:6px}
+.wifi-error-s{font-size:12px;color:rgba(255,255,255,.5);line-height:1.5}
+.wifi-actions{margin-top:28px;display:flex;flex-direction:column;gap:10px;width:100%;max-width:320px}
+.btn-check-wifi{background:var(--terra);color:#fff;font-size:15px;font-weight:700;padding:15px;border-radius:50px;box-shadow:0 4px 20px rgba(181,83,60,.4);transition:all .2s}
+.btn-check-wifi:active{transform:scale(.97)}
+.btn-override{background:rgba(255,255,255,.07);color:rgba(255,255,255,.5);font-size:12px;font-weight:500;padding:12px;border-radius:50px;border:1px solid rgba(255,255,255,.12);transition:all .2s}
+.btn-override:hover{color:#fff;border-color:rgba(255,255,255,.25)}
+.wifi-success{display:none;margin-top:20px}
+.wifi-success-icon{font-size:48px;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+.wifi-success-t{font-size:16px;font-weight:600;color:#7EC87E;margin-top:10px}
+
+/* ══ STAFF SELECTOR ══ */
+#sel-screen{background:var(--dark);align-items:center;justify-content:center;padding:36px 20px;text-align:center}
+.sel-logo{width:64px;height:64px;background:var(--terra);border-radius:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.sel-logo svg{width:32px;height:32px}
+.sel-brand{font-family:'DM Serif Display',serif;font-size:22px;color:#fff}
+.sel-sub{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.sel-title{font-size:17px;color:#fff;font-weight:600;margin-top:26px;line-height:1.4}
+.sel-title em{color:var(--gold);font-style:italic}
+.slist{margin-top:20px;width:100%;max-width:400px}
+.sbtn{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.1);border-radius:14px;padding:13px 16px;margin-bottom:8px;width:100%;text-align:left;transition:all .2s;cursor:pointer;position:relative}
+.sbtn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)}
+.sbtn:active{transform:scale(.97)}
+.sav{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff;flex-shrink:0}
+.sbtn-n{font-size:14px;font-weight:600;color:#fff}
+.sbtn-r{font-size:10.5px;color:rgba(255,255,255,.4);margin-top:2px}
+.spill{margin-left:auto;font-size:10px;font-weight:700;padding:3px 9px;border-radius:9px;white-space:nowrap}
+.pout{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4)}
+.pin{background:rgba(61,122,90,.25);color:#7EC87E}
+.pbrk{background:rgba(201,168,76,.2);color:var(--gold)}
+.plv{background:rgba(107,79,168,.25);color:#A67FE8}
+.ndot{position:absolute;top:9px;right:9px;width:9px;height:9px;background:var(--terra);border-radius:50%;border:2px solid var(--dark);animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ══ PIN SCREEN ══ */
+#pin-screen{background:var(--dark);align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.pin-av{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#fff;margin:0 auto 14px;box-shadow:0 0 0 4px rgba(255,255,255,.1)}
+.pin-name{font-family:'DM Serif Display',serif;font-size:22px;color:#fff}
+.pin-role{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;letter-spacing:1px;text-transform:uppercase}
+.pin-title{font-size:15px;color:rgba(255,255,255,.6);margin-top:22px;margin-bottom:20px}
+.pin-dots{display:flex;gap:14px;justify-content:center;margin-bottom:28px}
+.pin-dot{width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.15);transition:all .2s}
+.pin-dot.filled{background:var(--terra);transform:scale(1.1)}
+.pin-dot.shake{animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pin-dot.error{background:var(--red)}
+.pin-keypad{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;max-width:280px;width:100%}
+.pin-key{height:64px;border-radius:var(--r);font-size:22px;font-weight:600;color:#fff;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);transition:all .15s;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.pin-key:active{transform:scale(.92);background:rgba(255,255,255,.15)}
+.pin-key .pin-key-sub{font-size:8px;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px}
+.pin-key.del{background:rgba(192,57,43,.12);border-color:rgba(192,57,43,.2)}
+.pin-key.del:active{background:rgba(192,57,43,.25)}
+.pin-error-msg{font-size:13px;color:#E87070;margin-bottom:16px;min-height:20px;animation:fi .2s ease}
+.pin-back{color:rgba(255,255,255,.35);font-size:12px;margin-top:16px;padding:8px 16px}
+.pin-attempts{font-size:11px;color:rgba(192,57,43,.7);margin-top:8px;min-height:16px}
+.pin-locked{display:none;margin-top:16px;background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.25);border-radius:12px;padding:14px 18px;text-align:center}
+.pin-locked-t{font-size:14px;font-weight:600;color:#E87070}
+.pin-locked-s{font-size:12px;color:rgba(255,255,255,.4);margin-top:6px}
+
+/* ══ MAIN APP ══ */
+#main-screen{background:var(--dark)}
+.s-top{background:linear-gradient(160deg,rgba(181,83,60,.18) 0%,transparent 60%);padding:42px 18px 18px;display:flex;align-items:center;gap:13px;border-bottom:1px solid rgba(255,255,255,.07)}
+.s-av{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex-shrink:0;box-shadow:0 0 0 3px rgba(255,255,255,.1)}
+.s-name{font-family:'DM Serif Display',serif;font-size:18px;color:#fff}
+.s-role{font-size:10.5px;color:rgba(255,255,255,.45);margin-top:2px;letter-spacing:1px;text-transform:uppercase}
+.s-pts{margin-left:auto;text-align:right}
+.s-score{font-family:'DM Serif Display',serif;font-size:19px;color:var(--gold)}
+.s-score-l{font-size:9px;color:rgba(255,255,255,.35);margin-top:1px}
+.notif-btn{width:36px;height:36px;background:rgba(255,255,255,.07);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;cursor:pointer;flex-shrink:0}
+.nc{position:absolute;top:-2px;right:-2px;background:var(--terra);color:#fff;font-size:8px;font-weight:700;width:15px;height:15px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--dark)}
+
+/* STATUS */
+.sc-wrap{padding:13px 16px 0}
+.sc{border-radius:var(--r);padding:15px 17px;display:flex;align-items:center;gap:12px;border:1.5px solid rgba(255,255,255,.1)}
+.sc-work{background:rgba(61,122,90,.12);border-color:rgba(61,122,90,.3)}
+.sc-break{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.25)}
+.sc-out{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1)}
+.sc-cong{background:rgba(107,79,168,.1);border-color:rgba(107,79,168,.25)}
+.sc-ic{font-size:23px}
+.sc-main{font-size:14.5px;font-weight:700;color:#fff}
+.sc-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.sc-time{margin-left:auto;text-align:right}
+.sc-clk{font-family:'DM Serif Display',serif;font-size:18px;color:var(--gold)}
+.sc-cl{font-size:9px;color:rgba(255,255,255,.35);margin-top:1px}
+
+/* SHIFT CARD */
+.shift-card{margin:10px 16px 0;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:var(--rsm);padding:11px 14px;display:flex;align-items:center;gap:12px}
+.shift-ic{font-size:20px;flex-shrink:0}
+.shift-main{font-size:13px;font-weight:600;color:#fff}
+.shift-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px}
+.shift-time{margin-left:auto;text-align:right}
+.shift-hrs{font-family:'DM Serif Display',serif;font-size:18px;color:var(--gold)}
+.shift-hl{font-size:9px;color:rgba(255,255,255,.35);margin-top:1px}
+
+/* PONCT BAR */
+.ponct-bar{margin:10px 16px 0;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--rsm);padding:10px 13px}
+.pb-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.pb-label{font-size:11px;font-weight:600;color:rgba(255,255,255,.6)}
+.pb-score{font-family:'DM Serif Display',serif;font-size:15px;color:var(--gold)}
+.pb-track{height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+.pb-fill{height:100%;border-radius:2px;transition:width .6s ease}
+
+/* ACTIONS */
+.act-grid{display:grid;gap:8px;padding:10px 16px 0}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:1fr 1fr 1fr}
+.abtn{padding:12px 6px;border-radius:var(--rsm);display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:600;transition:all .2s}
+.abtn:active{transform:scale(.96)}
+.abtn .ic{font-size:20px}
+.btn-in{background:var(--green);color:#fff;box-shadow:0 4px 16px rgba(61,122,90,.35)}
+.btn-out{background:rgba(192,57,43,.15);color:#E87070;border:1.5px solid rgba(192,57,43,.25)}
+.btn-brk{background:rgba(201,168,76,.12);color:var(--gold);border:1.5px solid rgba(201,168,76,.2)}
+.btn-res{background:var(--gold);color:var(--dark)}
+.btn-sos{background:var(--red);color:#fff;animation:sg 2s infinite}
+@keyframes sg{0%,100%{box-shadow:0 4px 16px rgba(192,57,43,.4)}50%{box-shadow:0 4px 28px rgba(192,57,43,.8)}}
+.btn-adv{background:rgba(61,122,90,.12);color:#7EC87E;border:1.5px solid rgba(61,122,90,.2)}
+.btn-cng{background:rgba(107,79,168,.12);color:#A67FE8;border:1.5px solid rgba(107,79,168,.2)}
+.btn-wide{grid-column:1/-1}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:10px 16px 0}
+.sbox{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:var(--rsm);padding:10px;text-align:center}
+.sv{font-family:'DM Serif Display',serif;font-size:16px;color:#fff}
+.sl{font-size:9px;color:rgba(255,255,255,.35);margin-top:1px;line-height:1.3}
+
+/* TABS */
+.tabs{display:flex;padding:12px 16px 0;border-bottom:1px solid rgba(255,255,255,.07);overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;padding:8px 10px;font-size:10px;font-weight:600;color:rgba(255,255,255,.35);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap;position:relative}
+.tab.act{color:#fff;border-bottom-color:var(--terra)}
+.tbadge{position:absolute;top:2px;right:4px;background:var(--terra);color:#fff;font-size:7.5px;font-weight:700;padding:1px 4px;border-radius:6px}
+.tc{display:none;padding:12px 16px;overflow-y:auto;max-height:calc(100vh - 440px);padding-bottom:16px}
+.tc.act{display:block;animation:fi .2s ease}
+
+/* TASKS */
+.task{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px 12px;margin-bottom:7px;cursor:pointer;transition:all .2s}
+.task.done{opacity:.55}
+.tck{width:20px;height:20px;border-radius:5px;border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:all .2s;margin-top:1px}
+.task.done .tck{background:var(--green);border-color:var(--green);color:#fff}
+.ttxt{font-size:12.5px;color:#fff;flex:1;line-height:1.4}
+.task.done .ttxt{color:rgba(255,255,255,.4);text-decoration:line-through}
+.tprio{font-size:9px;font-weight:700;padding:2px 7px;border-radius:7px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+.ph{background:rgba(192,57,43,.25);color:#E87070}.pm{background:rgba(201,168,76,.2);color:var(--gold)}.pl{background:rgba(61,122,90,.2);color:#7EC87E}
+.tfooter{background:rgba(255,255,255,.04);border-radius:var(--rsm);padding:12px 14px;margin-top:8px;text-align:center}
+.tprog{font-size:13px;font-weight:600;color:#fff;margin-bottom:5px}
+.pbar-w{height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-bottom:10px}
+.pbar-f{height:100%;background:var(--green);border-radius:3px;transition:width .5s ease}
+.lbtn{width:100%;padding:13px;border-radius:50px;font-size:14px;font-weight:700;transition:all .3s;cursor:pointer;border:none}
+.lbtn.locked{background:rgba(255,255,255,.07);color:rgba(255,255,255,.25)}
+.lbtn.unlocked{background:var(--terra);color:#fff;box-shadow:0 4px 16px rgba(181,83,60,.4)}
+.lcd{font-size:10px;color:rgba(255,255,255,.35);margin-top:6px}
+
+/* MESSAGES */
+.req-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:11px;padding:13px 14px;margin-bottom:9px;border-left:4px solid var(--gray)}
+.req-card.warn{border-left-color:var(--orange)}
+.req-card.alert,.req-card.suspension{border-left-color:var(--red);background:rgba(192,57,43,.06)}
+.req-card.task{border-left-color:var(--gold)}
+.req-card.info,.req-card.msg{border-left-color:var(--blue)}
+.req-card.approved,.req-card.leave_ok,.req-card.advance{border-left-color:var(--green);background:rgba(61,122,90,.06)}
+.req-card.eval{border-left-color:var(--purple);background:rgba(107,79,168,.06)}
+.req-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.req-type{font-size:9.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.req-time{font-size:9.5px;color:rgba(255,255,255,.35)}
+.req-txt{font-size:12.5px;color:rgba(255,255,255,.8);line-height:1.5}
+.req-detail{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px}
+.req-badge{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px}
+.rb-pend{background:rgba(230,126,34,.2);color:var(--orange)}
+.rb-ok{background:rgba(61,122,90,.2);color:#7EC87E}
+.rb-no{background:rgba(192,57,43,.2);color:#E87070}
+.udot{width:7px;height:7px;background:var(--terra);border-radius:50%;display:inline-block;margin-right:4px}
+
+/* AI BAR */
+.aibar{display:flex;gap:9px;align-items:flex-start;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.18);border-radius:var(--rsm);padding:11px 13px;margin-bottom:12px}
+.aibar-ic{font-size:17px;flex-shrink:0}
+.aibar-txt{font-size:12px;color:rgba(255,255,255,.7);line-height:1.5}
+.aibar-txt strong{color:var(--gold)}
+
+/* SALARY */
+.sal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.sal-box{border-radius:var(--rsm);padding:13px;text-align:center;border:1px solid rgba(255,255,255,.1)}
+.sal-v{font-family:'DM Serif Display',serif;font-size:19px}
+.sal-l{font-size:10px;color:rgba(255,255,255,.45);margin-top:3px}
+.sal-gold{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.2)}
+.sal-red{background:rgba(192,57,43,.08);border-color:rgba(192,57,43,.2)}
+.sal-green{background:rgba(61,122,90,.1);border-color:rgba(61,122,90,.2)}
+.sal-blue{background:rgba(42,100,150,.1);border-color:rgba(42,100,150,.2)}
+
+/* PLANNING */
+.pday{margin-bottom:12px}
+.pdl{font-size:10px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px}
+.psh{background:rgba(255,255,255,.05);border-radius:9px;padding:12px 13px;border-left:3px solid var(--terra)}
+.psh.rest{border-left-color:var(--gray);opacity:.5}
+.psh.today{border-left-color:var(--gold);background:rgba(201,168,76,.08)}
+.pt{font-size:13.5px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.pd{font-size:10.5px;color:rgba(255,255,255,.4);margin-top:2px}
+.ps-badge{font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:8px}
+.ps-work{background:rgba(61,122,90,.2);color:#7EC87E}
+.ps-rest{background:rgba(160,148,136,.15);color:var(--gray)}
+.ps-today{background:rgba(201,168,76,.2);color:var(--gold)}
+
+/* BOTTOM NAV */
+.bnav{position:sticky;bottom:0;background:rgba(20,12,4,.96);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.07);display:flex;padding:8px 0 max(8px,env(safe-area-inset-bottom))}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;color:rgba(255,255,255,.3);font-size:9px;cursor:pointer;transition:all .2s;position:relative}
+.bni.act{color:var(--terra)}
+.bnic{font-size:19px}
+.bbadge{position:absolute;top:0;right:14%;background:var(--terra);color:#fff;font-size:7.5px;font-weight:700;padding:1px 5px;border-radius:7px}
+
+/* OVERLAYS */
+.conf-ov{position:fixed;inset:0;z-index:900;background:rgba(26,16,8,.95);display:none;align-items:center;justify-content:center;flex-direction:column;gap:11px;text-align:center;padding:40px}
+.conf-ov.show{display:flex;animation:fi .3s ease}
+.ce{font-size:68px;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+.ct{font-family:'DM Serif Display',serif;font-size:23px;color:#fff}
+.ctm{font-size:36px;font-family:'DM Serif Display',serif;color:var(--gold)}
+.cs{font-size:13px;color:rgba(255,255,255,.5)}
+.sos-ov{position:fixed;inset:0;z-index:910;background:rgba(192,57,43,.97);display:none;align-items:center;justify-content:center;flex-direction:column;gap:13px;text-align:center;padding:40px}
+.sos-ov.show{display:flex;animation:fi .2s ease}
+.sos-big{font-size:76px;animation:sp 1s infinite}
+@keyframes sp{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.sos-t{font-size:28px;font-weight:800;color:#fff}
+.sos-s{font-size:13px;color:rgba(255,255,255,.7)}
+.sos-c{margin-top:20px;padding:12px 36px;border-radius:50px;background:rgba(255,255,255,.15);color:#fff;font-size:13px;font-weight:600;border:none;cursor:pointer}
+
+/* SHEET */
+.sheet-ov{position:fixed;inset:0;z-index:600;background:rgba(26,16,8,.6);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center}
+.sheet-ov.open{display:flex;animation:fadein .2s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.sheet{background:#1E100A;border-radius:22px 22px 0 0;width:100%;max-width:500px;padding-bottom:max(22px,env(safe-area-inset-bottom));animation:slideup .3s cubic-bezier(.34,1.2,.64,1)}
+@keyframes slideup{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+.sh-handle{width:36px;height:4px;background:rgba(255,255,255,.15);border-radius:2px;margin:12px auto 0}
+.sh-body{padding:18px 20px 22px}
+.sh-title{font-family:'DM Serif Display',serif;font-size:18px;color:#fff;margin-bottom:14px}
+.fi{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#fff;outline:none;transition:all .2s}
+.fi:focus{border-color:var(--gold)}
+.fi::placeholder{color:rgba(255,255,255,.3)}
+.fl{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;display:block;margin-top:12px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fsel{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#fff;outline:none;appearance:none;cursor:pointer}
+.fsel option{background:#2C1A0E}
+.sbmit{width:100%;background:var(--gold);color:var(--dark);font-size:14.5px;font-weight:700;padding:13px;border-radius:50px;margin-top:14px;cursor:pointer;border:none;transition:all .2s}
+.sbmit:active{transform:scale(.97)}
+.cancel-btn{width:100%;color:rgba(255,255,255,.4);font-size:12.5px;padding:9px;cursor:pointer;border:none;background:none;margin-top:5px}
+.info-box{background:rgba(255,255,255,.05);border-radius:9px;padding:11px 13px;margin-bottom:4px}
+.info-box-v{font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold)}
+.info-box-l{font-size:10px;color:rgba(255,255,255,.45);margin-top:2px}
+.warn-box{background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.25);border-radius:9px;padding:10px 12px;font-size:12px;color:#E87070;line-height:1.5;margin-top:6px}
+.calc-result{font-size:12px;padding:7px 10px;border-radius:8px;min-height:18px;margin-top:5px}
+
+@media(min-width:480px){
+  #wifi-screen,#sel-screen,#pin-screen,#main-screen{max-width:460px;margin:0 auto}
+  .bnav{max-width:460px;left:50%;transform:translateX(-50%);border-radius:20px 20px 0 0}
+}
+
+/* GEOFENCING */
+.geo-status{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--rsm);padding:11px 14px;margin-top:12px}
+.geo-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.geo-ok{background:var(--green);animation:pg 2s infinite}
+.geo-err{background:var(--red)}
+.geo-chk{background:var(--gold);animation:blink 1s infinite}
+
+
+.fi-d{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#fff;outline:none;transition:all .2s;resize:vertical}
+.fi-d:focus{border-color:var(--gold)}.fi-d::placeholder{color:rgba(255,255,255,.3)}
+</style>
+</head>
+<body>
+
+<!-- OVERLAYS -->
+<div class="conf-ov" id="conf-ov">
+  <div class="ce" id="ce">✅</div>
+  <div class="ct" id="ct">Pointage enregistré</div>
+  <div class="ctm" id="ctm">--:--</div>
+  <div class="cs" id="cs">Bonne journée !</div>
+</div>
+<div class="sos-ov" id="sos-ov">
+  <div class="sos-big">🆘</div>
+  <div class="sos-t">SOS ENVOYÉ</div>
+  <div class="sos-s">Le manager a été alerté immédiatement.</div>
+  <div class="sos-s" id="sos-time">--:--</div>
+  <button class="sos-c" onclick="closeSOS()">Annuler l'alerte</button>
+</div>
+
+<!-- ADVANCE SHEET -->
+<div class="sheet-ov" id="sheet-adv">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-body">
+      <div class="sh-title">💰 Demande d'avance sur salaire</div>
+      <div class="frow">
+        <div class="info-box"><div class="info-box-v" id="adv-sal-v">0 MAD</div><div class="info-box-l">Salaire mensuel</div></div>
+        <div class="info-box"><div class="info-box-v" id="adv-max-v">0 MAD</div><div class="info-box-l">Maximum (50%)</div></div>
+      </div>
+      <label class="fl">Montant demandé (MAD)</label>
+      <input class="fi" id="adv-amt" type="number" placeholder="ex: 500" oninput="calcAdv()">
+      <div class="calc-result" id="adv-calc"></div>
+      <label class="fl">Motif</label>
+      <textarea class="fi" id="adv-reason" rows="2" placeholder="ex: Urgence médicale, loyer…"></textarea>
+      <button class="sbmit" onclick="submitAdv()">📤 Envoyer la demande</button>
+      <button class="cancel-btn" onclick="closeSheet('adv')">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONGÉ SHEET -->
+<div class="sheet-ov" id="sheet-cng">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-body">
+      <div class="sh-title">🌴 Demander un congé</div>
+      <label class="fl" style="margin-top:0">Type de congé</label>
+      <select class="fsel" id="cng-type" onchange="updateCngInfo()">
+        <option value="annual">🌴 Congé annuel (payé)</option>
+        <option value="exceptional">⚡ Congé exceptionnel (déduit)</option>
+        <option value="sick">🏥 Congé maladie (justificatif)</option>
+        <option value="unpaid">📋 Congé sans solde</option>
+      </select>
+      <div class="frow" style="margin-top:12px">
+        <div><label class="fl" style="margin-top:0">Date début</label><input class="fi" id="cng-start" type="date"></div>
+        <div><label class="fl" style="margin-top:0">Date fin</label><input class="fi" id="cng-end" type="date" oninput="calcCng()"></div>
+      </div>
+      <div class="calc-result" id="cng-calc"></div>
+      <div class="warn-box" id="cng-warn" style="display:none"></div>
+      <label class="fl">Motif / Justification</label>
+      <textarea class="fi" id="cng-reason" rows="2" placeholder="Précisez le motif…"></textarea>
+      <button class="sbmit" onclick="submitCng()">📤 Envoyer la demande</button>
+      <button class="cancel-btn" onclick="closeSheet('cng')">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN 1 : WIFI CHECK ══ -->
+<div class="screen act" id="wifi-screen">
+  <div class="wifi-logo">
+    <svg viewBox="0 0 38 38" fill="none"><path d="M8 28C8 18 14 10 19 10C24 10 30 18 30 28" stroke="white" stroke-width="3" stroke-linecap="round"/><circle cx="19" cy="10" r="3" fill="white"/><path d="M12 28H26" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/></svg>
+  </div>
+  <div class="wifi-brand">NewEdge Staff</div>
+  <div class="wifi-sub">Accès Sécurisé</div>
+  <div class="wifi-icon-big" id="wifi-status-icon">📡</div>
+  <div class="wifi-title" id="wifi-title">Accès Sécurisé<br><em style="color:var(--gold);font-style:italic;font-size:16px">Mode démo actif</em></div>
+  <div class="wifi-desc" id="wifi-desc">Mode démo : appuyez sur "Vérifier" pour accéder directement. En production, connectez-vous au WiFi du restaurant.</div>
+  <div class="wifi-checking" id="wifi-checking">
+    <div class="wifi-spinner"></div>
+    <div class="wifi-check-txt" id="wifi-check-txt">Vérification du réseau en cours…</div>
+  </div>
+  <div class="wifi-error" id="wifi-error">
+    <div class="wifi-error-t">❌ Réseau non reconnu</div>
+    <div class="wifi-error-s" id="wifi-error-s">Vous n'êtes pas connecté au WiFi du restaurant. Veuillez vous connecter au réseau <strong id="wifi-name-display">NewEdge_Restaurant</strong> et réessayer.</div>
+  </div>
+  <div class="wifi-success" id="wifi-success">
+    <div class="wifi-success-icon">✅</div>
+    <div class="wifi-success-t">Réseau restaurant vérifié !</div>
+  </div>
+  <div class="wifi-actions">
+    <button class="btn-check-wifi" id="btn-check" onclick="handleAccessBtn()">▶️ Accéder à l'application</button>
+    <button class="btn-override" id="btn-override" onclick="wifiOverride()">🔑 Code manager (9999)</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN 2 : STAFF SELECTOR ══ -->
+<div class="screen" id="sel-screen">
+  <div class="sel-logo">
+    <svg viewBox="0 0 38 38" fill="none"><path d="M8 28C8 18 14 10 19 10C24 10 30 18 30 28" stroke="white" stroke-width="3" stroke-linecap="round"/><circle cx="19" cy="10" r="3" fill="white"/><path d="M12 28H26" stroke="#C9A84C" stroke-width="3" stroke-linecap="round"/></svg>
+  </div>
+  <div class="sel-brand">NewEdge Staff</div>
+  <div class="sel-sub">Pointage & Gestion</div>
+  <div class="sel-title">Bonjour,<br><em>qui êtes-vous ?</em></div>
+  <div class="slist" id="slist"></div>
+</div>
+
+<!-- ══ SCREEN 3 : PIN ══ -->
+<div class="screen" id="pin-screen">
+  <div class="pin-av" id="pin-av">YA</div>
+  <div class="pin-name" id="pin-name">Youssef Alami</div>
+  <div class="pin-role" id="pin-role">Serveur</div>
+  <div class="pin-title">Entrez votre code secret (4 chiffres)</div>
+  <div class="pin-dots" id="pin-dots">
+    <div class="pin-dot" id="pd0"></div>
+    <div class="pin-dot" id="pd1"></div>
+    <div class="pin-dot" id="pd2"></div>
+    <div class="pin-dot" id="pd3"></div>
+  </div>
+  <div class="pin-error-msg" id="pin-error"></div>
+  <div class="pin-keypad">
+    <button class="pin-key" onclick="pinKey('1')">1<div class="pin-key-sub"></div></button>
+    <button class="pin-key" onclick="pinKey('2')">2<div class="pin-key-sub">ABC</div></button>
+    <button class="pin-key" onclick="pinKey('3')">3<div class="pin-key-sub">DEF</div></button>
+    <button class="pin-key" onclick="pinKey('4')">4<div class="pin-key-sub">GHI</div></button>
+    <button class="pin-key" onclick="pinKey('5')">5<div class="pin-key-sub">JKL</div></button>
+    <button class="pin-key" onclick="pinKey('6')">6<div class="pin-key-sub">MNO</div></button>
+    <button class="pin-key" onclick="pinKey('7')">7<div class="pin-key-sub">PQRS</div></button>
+    <button class="pin-key" onclick="pinKey('8')">8<div class="pin-key-sub">TUV</div></button>
+    <button class="pin-key" onclick="pinKey('9')">9<div class="pin-key-sub">WXYZ</div></button>
+    <button class="pin-key" onclick="pinKey('0')" style="visibility:hidden"></button>
+    <button class="pin-key" onclick="pinKey('0')">0</button>
+    <button class="pin-key del" onclick="pinDelete()">⌫</button>
+  </div>
+  <div class="pin-attempts" id="pin-attempts"></div>
+  <div class="pin-locked" id="pin-locked">
+    <div class="pin-locked-t">🔒 Compte temporairement bloqué</div>
+    <div class="pin-locked-s" id="pin-locked-s">3 tentatives incorrectes. Réessayez dans <span id="lock-countdown">30</span>s ou contactez le manager.</div>
+  </div>
+  <button class="pin-back" onclick="goBackToSelector()">← Changer de profil</button>
+</div>
+
+<!-- ══ SCREEN 4 : MAIN APP ══ -->
+<div class="screen" id="main-screen">
+  <div class="s-top">
+    <div class="s-av" id="s-av">YA</div>
+    <div style="flex:1">
+      <div class="s-name" id="s-name">Youssef</div>
+      <div class="s-role" id="s-role">Serveur</div>
+    </div>
+    <div class="s-pts">
+      <div class="s-score" id="s-ponct">--</div>
+      <div class="s-score-l">Ponctualité</div>
+    </div>
+    <div class="notif-btn" onclick="switchTab('notifs')">🔔<div class="nc" id="notif-cnt" style="display:none">0</div></div>
+  </div>
+
+  <!-- STATUS CARD -->
+  <div class="sc-wrap">
+    <div class="sc sc-out" id="sc">
+      <span class="sc-ic" id="sc-ic">⚪</span>
+      <div><div class="sc-main" id="sc-main">Non pointé</div><div class="sc-sub" id="sc-sub">Appuyez sur Arrivée.</div></div>
+      <div class="sc-time"><div class="sc-clk" id="live-clk">--:--:--</div><div class="sc-cl">Heure actuelle</div></div>
+    </div>
+  </div>
+
+  <!-- TODAY SHIFT -->
+  <div class="shift-card" id="today-shift" style="display:none">
+    <span class="shift-ic">📋</span>
+    <div><div class="shift-main" id="shift-main">Shift aujourd'hui</div><div class="shift-sub" id="shift-sub">--:-- → --:--</div></div>
+    <div class="shift-time"><div class="shift-hrs" id="shift-hrs">--h</div><div class="shift-hl">Durée</div></div>
+  </div>
+
+  <!-- PONCTUALITÉ -->
+  <div class="ponct-bar">
+    <div class="pb-row"><span class="pb-label">🎯 Score Ponctualité</span><span class="pb-score" id="pb-score">--/100</span></div>
+    <div class="pb-track"><div class="pb-fill" id="pb-fill" style="width:0%"></div></div>
+  </div>
+
+  <!-- ACTIONS -->
+  <div class="act-grid g2" id="act-grid"></div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="sbox"><div class="sv" id="st-today">0:00</div><div class="sl">Aujourd'hui</div></div>
+    <div class="sbox"><div class="sv" id="st-week">0h</div><div class="sl">Semaine</div></div>
+    <div class="sbox"><div class="sv" id="st-cng">--</div><div class="sl">Congés restants</div></div>
+    <div class="sbox"><div class="sv" id="st-net">0 MAD</div><div class="sl">Net estimé</div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab act" id="tab-tasks" onclick="switchTab('tasks')">✅ Tâches<span class="tbadge" id="tb-tasks" style="display:none">0</span></div>
+    <div class="tab" id="tab-notifs" onclick="switchTab('notifs')">🔔 Messages<span class="tbadge" id="tb-notifs" style="display:none">0</span></div>
+    <div class="tab" id="tab-planning" onclick="switchTab('planning')">📅 Planning</div>
+    <div class="tab" id="tab-history" onclick="switchTab('history')">⏱ Historique</div>
+    <div class="tab" id="tab-salary" onclick="switchTab('salary')">💰 Mon Compte</div>
+    <div class="tab" id="tab-msg" onclick="switchTab('msg')">✉️ Message<span class="tbadge" id="tb-msg" style="display:none">!</span></div>
+    <div class="tab" id="tab-docs" onclick="switchTab('docs')">📋 Docs</div>
+  </div>
+  <div class="tc act" id="tc-tasks">
+    <div class="aibar"><span class="aibar-ic">🤖</span><div class="aibar-txt" id="ai-task-txt">Chargement…</div></div>
+    <div id="tasks-list"></div>
+    <div class="tfooter">
+      <div class="tprog" id="tprog">0 / 0 tâches</div>
+      <div class="pbar-w"><div class="pbar-f" id="pbar" style="width:0%"></div></div>
+      <button class="lbtn locked" id="lbtn" onclick="tryLeave()">🔒 Départ verrouillé</button>
+      <div class="lcd" id="lcd"></div>
+    </div>
+  </div>
+  <div class="tc" id="tc-notifs"><div id="notifs-list"></div></div>
+  <div class="tc" id="tc-planning"><div id="plan-content"></div></div>
+  <div class="tc" id="tc-history"><div id="hist-list"></div></div>
+  <div class="tc" id="tc-salary">
+    <div class="aibar"><span class="aibar-ic">💰</span><div class="aibar-txt" id="ai-sal-txt">Chargement…</div></div>
+    <div id="sal-content"></div>
+  </div>
+
+  <!-- MSG TAB -->
+  <div class="tc" id="tc-msg">
+    <div style="background:rgba(42,100,150,.1);border:1px solid rgba(42,100,150,.2);border-radius:10px;padding:11px 13px;margin-bottom:12px;display:flex;gap:9px">
+      <span style="font-size:17px;flex-shrink:0">🔒</span>
+      <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.5">Messages directs au manager — archivés définitivement. <strong style="color:var(--gold)">Transparence totale.</strong></div>
+    </div>
+    <textarea id="s-msg-input" rows="4" style="width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#fff;outline:none;resize:vertical;margin-bottom:10px" placeholder="Écrivez votre message..."></textarea>
+    <button onclick="sSendMessage()" style="width:100%;background:var(--blue);color:#fff;font-size:14px;font-weight:700;padding:13px;border-radius:50px;cursor:pointer;border:none;margin-bottom:16px;box-shadow:0 4px 16px rgba(42,100,150,.4)">📤 Envoyer au Manager</button>
+    <div style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Mes messages envoyés</div>
+    <div id="s-my-messages"></div>
+  </div>
+
+  <!-- DOCS TAB -->
+  <div class="tc" id="tc-docs">
+    <div class="aibar"><span class="aibar-ic">📋</span><div class="aibar-txt">Demandez vos documents officiels. Le manager génère et vous remet le document.</div></div>
+    <div style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Demander un document</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px">
+      <button onclick="sRequestDoc('attestation_travail','Attestation de Travail')" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer;border-radius:12px"><span style="font-size:22px">📋</span>Attestation Travail</button>
+      <button onclick="sRequestDoc('attestation_salaire','Attestation de Salaire')" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer"><span style="font-size:22px">💰</span>Attestation Salaire</button>
+      <button onclick="sRequestDoc('contrat_cdi','Copie Contrat')" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer"><span style="font-size:22px">📝</span>Copie Contrat</button>
+      <button onclick="sRequestDoc('certificat_conge','Certificat de Congé')" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer"><span style="font-size:22px">🌴</span>Cert. Congé</button>
+      <button onclick="sRequestDoc('recu_avance','Reçu Avance')" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer"><span style="font-size:22px">🧾</span>Reçu Avance</button>
+      <button onclick="sRequestDoc('certificat_fin','Fin d\'Emploi')" style="background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:13px;display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px;font-weight:600;color:#fff;cursor:pointer"><span style="font-size:22px">🏁</span>Fin d'Emploi</button>
+    </div>
+    <div style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">Mes demandes</div>
+    <div id="s-my-docs"></div>
+  </div>
+
+  <div class="bnav">
+    <div class="bni act" onclick="switchTab('tasks')"><span class="bnic">✅</span><span>Tâches</span></div>
+    <div class="bni" onclick="switchTab('notifs')"><span class="bnic">🔔</span><span>Messages</span><span class="bbadge" id="bb-notifs" style="display:none">0</span></div>
+    <div class="bni" onclick="switchTab('planning')"><span class="bnic">📅</span><span>Planning</span></div>
+    <div class="bni" onclick="switchTab('history')"><span class="bnic">⏱</span><span>Historique</span></div>
+    <div class="bni" onclick="switchTab('salary')"><span class="bnic">💰</span><span>Compte</span></div>
+    <div class="bni" onclick="switchTab('msg')"><span class="bnic">✉️</span><span>Message</span><span class="bbadge" id="bb-msg" style="display:none">!</span></div>
+  <div class="bni" onclick="switchTab('docs')"><span class="bnic">📋</span><span>Docs</span></div>
+    <div class="bni" onclick="secureLogout()"><span class="bnic">🔒</span><span>Verrouiller</span></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// SHARED STATE (synced with manager)
+// ═══════════════════════════════════════
+const SH = window.NEWEDGE_SHARED || (window.NEWEDGE_SHARED = {
+  staffStatus:{}, notifications:{}, tasks:{}, clockHistory:{},
+  advances:{}, leaves:{}, evaluations:{}, monthlyLog:{},
+  ponctualite:{}, settings:{
+    leaveQuota:30, leaveDelay:5, wifiIP:'', wifiName:'NewEdge_Restaurant',
+    managerOverrideCode:'9999',
+    staffPins:{1:'1111', 2:'2222', 3:'3333', 4:'4444', 5:'5555'},
+    staffShifts:{}
+  },
+});
+
+// ═══════════════════════════════════════
+// STAFF DATA (loaded from shared, default provided)
+// ═══════════════════════════════════════
+const STAFF_DB = [
+  {id:1,fname:'Youssef',lname:'Alami',role:'serveur',color:'#B5533C',weekHours:41,monthlySalary:3200},
+  {id:2,fname:'Fatima',lname:'Benali',role:'serveur',color:'#C9A84C',weekHours:50,monthlySalary:3800},
+  {id:3,fname:'Karim',lname:'Tazi',role:'cuisine',color:'#3D7A5A',weekHours:63,monthlySalary:5200},
+  {id:4,fname:'Sara',lname:'Idrissi',role:'caisse',color:'#2A6496',weekHours:41,monthlySalary:2800},
+  {id:5,fname:'Omar',lname:'Chraibi',role:'cuisine',color:'#6B4FA8',weekHours:55,monthlySalary:4400},
+];
+const RM = {serveur:'Serveur',cuisine:'Cuisine',caisse:'Caisse',manager:'Manager'};
+const CNG_LABELS = {annual:'🌴 Congé annuel',exceptional:'⚡ Exceptionnel',sick:'🏥 Maladie',unpaid:'📋 Sans solde'};
+const CNG_COLORS = {annual:'var(--green)',exceptional:'var(--orange)',sick:'var(--blue)',unpaid:'var(--gray)'};
+const DAYS = ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+
+let current = null;
+let clockInterval = null, leaveTimer2 = null, leaveUnlocked = false;
+let sessionStart = null, breakStart = null, todaySeconds = 0;
+let pinBuffer = '', pinAttempts = 0, pinLocked = false, lockTimer = null;
+let wifiVerified = false;
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+function today(){return new Date().toLocaleDateString('fr-FR');}
+function nowTime(){return new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
+function daysBetween(d1,d2){return Math.max(0,Math.round((new Date(d2)-new Date(d1))/(864e5))+1);}
+function dailyRate(s){return Math.round(s.monthlySalary/26);}
+function usedLeaves(id){return(SH.leaves[id]||[]).filter(l=>l.status==='approved'&&(l.type==='annual'||l.type==='sick')).reduce((s,l)=>s+l.days,0);}
+function remainingLeaves(id){const q=(SH.settings.staffQuotas&&SH.settings.staffQuotas[id]!=null)?SH.settings.staffQuotas[id]:(SH.settings.leaveQuota||30);return q-usedLeaves(id);}
+function totalDeductions(id){const a=(SH.advances[id]||[]).filter(x=>x.status==='approved').reduce((s,x)=>s+x.amount,0);const c=(SH.leaves[id]||[]).filter(x=>x.status==='approved'&&x.type==='exceptional').reduce((s,x)=>s+(x.deduction||0),0);return a+c;}
+function netSalary(s){return s.monthlySalary-totalDeductions(s.id);}
+function calcPonct(id){const p=SH.ponctualite[id]||{};const tot=(p.onTime||0)+(p.late||0)+(p.absent||0);return tot===0?null:Math.round(((p.onTime||0)/tot)*100);}
+function getTodayShift(id){
+  const dayIdx=new Date().getDay(); // 0=Sun,1=Mon...
+  const dayMap=[6,0,1,2,3,4,5]; // convert JS day to Mon-first index
+  const dayName=DAYS[dayMap[dayIdx]];
+  const shifts=SH.settings.staffShifts[id]||[];
+  return shifts.find(s=>s.day===dayName&&!s.rest)||null;
+}
+function shiftHours(shift){
+  if(!shift||!shift.start||!shift.end) return 0;
+  const [sh,sm]=shift.start.split(':').map(Number);
+  const [eh,em]=shift.end.split(':').map(Number);
+  return ((eh*60+em)-(sh*60+sm))/60;
+}
+
+// ═══════════════════════════════════════
+// WIFI CHECK
+// ═══════════════════════════════════════
+// RESTAURANT GPS COORDINATES (set from manager settings)
+var RESTAURANT_GPS = SH.settings.restaurantGPS || {lat: 35.7673, lng: -5.7997, radius: 150}; // Default: Tanger centre
+
+function checkWifi(){
+  var btnCheck = document.getElementById('btn-check');
+  var checking = document.getElementById('wifi-checking');
+  var success = document.getElementById('wifi-success');
+  var error = document.getElementById('wifi-error');
+  var configuredIP = SH.settings.wifiIP||'';
+
+  btnCheck.disabled=true;
+  btnCheck.textContent='Vérification...';
+  checking.style.display='block';
+  error.style.display='none';
+  success.style.display='none';
+
+  // DEMO MODE: no IP and no GPS configured = allow
+  if(!configuredIP && !SH.settings.restaurantGPS){
+    setTimeout(function(){
+      checking.style.display='none';
+      success.style.display='block';
+      document.getElementById('wifi-success-t').textContent='✓ Mode démo actif';
+      wifiVerified=true;
+      btnCheck.disabled=false;
+      goToSelector();
+    }, 600);
+    return;
+  }
+
+  // Try GPS first (more reliable than IP)
+  if(navigator.geolocation){
+    document.getElementById('wifi-check-txt').textContent='Vérification localisation GPS...';
+    navigator.geolocation.getCurrentPosition(
+      function(pos){
+        var dist = calcDistance(
+          pos.coords.latitude, pos.coords.longitude,
+          RESTAURANT_GPS.lat, RESTAURANT_GPS.lng
+        );
+        var radius = RESTAURANT_GPS.radius || 150;
+        checking.style.display='none';
+        if(dist <= radius || !SH.settings.restaurantGPS){
+          success.style.display='block';
+          document.getElementById('wifi-success-t').textContent='✓ Localisation confirmée ('+ Math.round(dist)+'m du restaurant)';
+          wifiVerified=true;
+          btnCheck.disabled=false;
+          goToSelector();
+        } else {
+          error.style.display='block';
+          document.getElementById('wifi-error-s').innerHTML =
+            '📍 Vous êtes à <strong>' + Math.round(dist) + 'm</strong> du restaurant.<br>' +
+            'Accès autorisé dans un rayon de <strong>' + radius + 'm</strong>.';
+          btnCheck.disabled=false;
+          btnCheck.textContent='🔍 Réessayer';
+        }
+      },
+      function(err){
+        // GPS denied or unavailable — fall back to IP or demo
+        checking.style.display='none';
+        success.style.display='block';
+        document.getElementById('wifi-success-t').textContent='✓ GPS indisponible — Accès autorisé';
+        wifiVerified=true;
+        btnCheck.disabled=false;
+        goToSelector();
+      },
+      {enableHighAccuracy:true, timeout:8000, maximumAge:0}
+    );
+  } else {
+    // No geolocation API — just proceed
+    setTimeout(function(){
+      checking.style.display='none';
+      success.style.display='block';
+      document.getElementById('wifi-success-t').textContent='✓ Accès autorisé';
+      wifiVerified=true;
+      btnCheck.disabled=false;
+      goToSelector();
+    }, 600);
+  }
+}
+
+function calcDistance(lat1, lng1, lat2, lng2){
+  var R = 6371000; // metres
+  var dLat = (lat2-lat1) * Math.PI/180;
+  var dLng = (lng2-lng1) * Math.PI/180;
+  var a = Math.sin(dLat/2)*Math.sin(dLat/2) +
+          Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*
+          Math.sin(dLng/2)*Math.sin(dLng/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function wifiOverride(){
+  // DEMO: accept any of these codes
+  const validCodes=['9999','1234','0000',String(SH.settings.managerOverrideCode||'9999')];
+  const code = prompt('Code manager pour accès test (défaut: 9999) :');
+  if(code===null) return;
+  if(validCodes.includes(code.trim())){
+    wifiVerified=true;
+    document.getElementById('wifi-error').style.display='none';
+    document.getElementById('wifi-success').style.display='block';
+    document.getElementById('wifi-success-t').textContent='✓ Accès manager autorisé';
+    goToSelector();
+  } else {
+    alert('Code incorrect. Codes valides en démo : 9999, 1234, 0000');
+  }
+}
+
+function goToSelector(){
+  var ws = document.getElementById('wifi-screen');
+  var ss = document.getElementById('sel-screen');
+  if(ws) ws.className = 'screen';
+  if(ss) ss.className = 'screen act';
+  renderSelector();
+}
+
+function handleAccessBtn(){
+  goToSelector();
+}
+
+// ═══════════════════════════════════════
+// SELECTOR
+// ═══════════════════════════════════════
+function renderSelector(){
+  document.getElementById('slist').innerHTML = STAFF_DB.map(s => {
+    const st = SH.staffStatus[s.id];
+    const status = st?.status||'out';
+    const pill = status==='in'?'<span class="spill pin">● En service</span>':
+                 status==='break'?'<span class="spill pbrk">● En pause</span>':
+                 status==='leave'?'<span class="spill plv">● En congé</span>':
+                 '<span class="spill pout">● Hors service</span>';
+    const unread = (SH.notifications[s.id]||[]).filter(n=>!n.read).length;
+    const hasPin = !!(SH.settings.staffPins&&SH.settings.staffPins[s.id]);
+    var pinHint = hasPin ? (' · Code: '+s.id+s.id+s.id+s.id) : ' · Aucun PIN';
+    return '<div class="sbtn" onclick="selectStaff('+s.id+')">'
+      +'<div class="sav" style="background:'+s.color+'">'+s.fname[0]+s.lname[0]+'</div>'
+      +'<div><div class="sbtn-n">'+s.fname+' '+s.lname+'</div>'
+      +'<div class="sbtn-r">'+RM[s.role]+pinHint+'</div></div>'
+      +pill+(unread>0?'<div class="ndot"></div>':'')
+      +'</div>';
+  }).join('');
+}
+
+// ═══════════════════════════════════════
+// PIN SCREEN
+// ═══════════════════════════════════════
+let selectedStaffId = null;
+
+function selectStaff(id){
+  selectedStaffId = id;
+  var s = STAFF_DB.find(function(x){return x.id===id;});
+  if(!s) return;
+  // No PIN set = direct access (demo mode)
+  if(!SH.settings.staffPins||!SH.settings.staffPins[id]){
+    proceedToApp(s);
+    return;
+  }
+  // Show PIN screen
+  pinBuffer=''; pinAttempts=0;
+  document.getElementById('pin-av').textContent=s.fname[0]+s.lname[0];
+  document.getElementById('pin-av').style.background=s.color;
+  document.getElementById('pin-name').textContent=s.fname+' '+s.lname;
+  document.getElementById('pin-role').textContent=RM[s.role];
+  document.getElementById('pin-error').textContent='';
+  document.getElementById('pin-attempts').textContent='';
+  document.getElementById('pin-locked').style.display='none';
+  updatePinDots();
+  var sel=document.getElementById('sel-screen');
+  var pin=document.getElementById('pin-screen');
+  if(sel) sel.className='screen';
+  if(pin) pin.className='screen act';
+}
+
+function pinKey(digit){
+  if(pinLocked) return;
+  if(pinBuffer.length>=4) return;
+  pinBuffer+=digit;
+  updatePinDots();
+  if(pinBuffer.length===4) setTimeout(verifyPin,150);
+}
+
+function pinDelete(){
+  if(pinLocked) return;
+  pinBuffer=pinBuffer.slice(0,-1);
+  updatePinDots();
+  document.getElementById('pin-error').textContent='';
+}
+
+function updatePinDots(){
+  for(let i=0;i<4;i++){
+    const dot=document.getElementById(`pd${i}`);
+    dot.classList.toggle('filled',i<pinBuffer.length);
+    dot.classList.remove('error','shake');
+  }
+}
+
+function verifyPin(){
+  const s = STAFF_DB.find(x=>x.id===selectedStaffId);
+  const correctPin = String(SH.settings.staffPins?.[selectedStaffId]||'');
+  if(pinBuffer===correctPin){
+    for(var i=0;i<4;i++){var d=document.getElementById('pd'+i);if(d)d.className='pin-dot filled';}
+    proceedToApp(s);
+  } else {
+    pinAttempts++;
+    for(var i=0;i<4;i++){var d2=document.getElementById('pd'+i);if(d2){d2.className='pin-dot error shake';}}
+    pinBuffer='';
+    updatePinDots();
+    if(pinAttempts>=3){
+      lockPin();
+    } else {
+      document.getElementById('pin-error').textContent='Code incorrect. Réessayez.';
+      document.getElementById('pin-attempts').textContent=`${3-pinAttempts} tentative(s) restante(s)`;
+    }
+  }
+}
+
+function lockPin(){
+  pinLocked=true;
+  document.getElementById('pin-locked').style.display='block';
+  document.getElementById('pin-error').textContent='';
+  document.getElementById('pin-attempts').textContent='';
+  let secs=30;
+  document.getElementById('lock-countdown').textContent=secs;
+  lockTimer=setInterval(()=>{
+    secs--;
+    document.getElementById('lock-countdown').textContent=secs;
+    if(secs<=0){clearInterval(lockTimer);pinLocked=false;pinAttempts=0;document.getElementById('pin-locked').style.display='none';}
+  },1000);
+}
+
+function goBackToSelector(){
+  pinBuffer=''; pinAttempts=0;
+  if(lockTimer){clearInterval(lockTimer);pinLocked=false;}
+  var pin=document.getElementById('pin-screen');
+  var sel=document.getElementById('sel-screen');
+  if(pin) pin.className='screen';
+  if(sel) sel.className='screen act';
+}
+
+// ═══════════════════════════════════════
+// APP LOAD
+// ═══════════════════════════════════════
+function proceedToApp(s){
+  current = s;
+  initSharedForStaff(s.id);
+  document.getElementById('pin-screen').classList.remove('act');
+  document.getElementById('sel-screen').classList.remove('act');
+  document.getElementById('main-screen').classList.add('act');
+  // Fill header
+  document.getElementById('s-av').textContent=s.fname[0]+s.lname[0];
+  document.getElementById('s-av').style.background=s.color;
+  document.getElementById('s-name').textContent=`${s.fname} ${s.lname}`;
+  document.getElementById('s-role').textContent=RM[s.role];
+  document.getElementById('st-week').textContent=`${s.weekHours}h`;
+  document.getElementById('st-cng').textContent=remainingLeaves(s.id)+'j';
+  // Restore session
+  const st=SH.staffStatus[s.id];
+  sessionStart=st.status==='in'&&st.since?new Date(st.since):null;
+  breakStart=st.status==='break'&&st.since?new Date(st.since):null;
+  todaySeconds=st.todayMin*60||0;
+  // Render
+  renderActionButtons();renderStatusCard();renderTasks();renderNotifs();
+  renderPlanning();renderHistory();renderSalary();genAIInsight();
+  renderTodayShift();updatePonctDisplay();
+  if(clockInterval)clearInterval(clockInterval);
+  clockInterval=setInterval(tickClock,1000);tickClock();
+  updateNotifBadge();
+}
+
+function initSharedForStaff(id){
+  if(!SH.staffStatus[id])SH.staffStatus[id]={status:'out',since:null,todayMin:0};
+  if(!SH.notifications[id])SH.notifications[id]=[{id:1,type:'info',text:`Bienvenue ! Bonne journée.`,from:'Manager',time:today(),read:false}];
+  if(!SH.tasks[id])SH.tasks[id]=getDefaultTasks(id);
+  if(!SH.clockHistory[id])SH.clockHistory[id]=[];
+  if(!SH.advances[id])SH.advances[id]=[];
+  if(!SH.leaves[id])SH.leaves[id]=[];
+  if(!SH.evaluations[id])SH.evaluations[id]=[];
+  if(!SH.monthlyLog[id])SH.monthlyLog[id]=[];
+  if(!SH.ponctualite[id])SH.ponctualite[id]={onTime:0,late:0,absent:0,totalLate:0};
+  // Init shifts if not set
+  if(!SH.settings.staffShifts)SH.settings.staffShifts={};
+  if(!SH.settings.staffShifts[id])SH.settings.staffShifts[id]=getDefaultShifts(id);
+}
+
+function getDefaultTasks(id){
+  const defaults={
+    1:[{id:1,text:'Mise en place tables 1–6',prio:'h'},{id:2,text:'Vérifier QR codes',prio:'h'},{id:3,text:'Briefing pré-service',prio:'m'},{id:4,text:'Nettoyer poste avant départ',prio:'l'}],
+    2:[{id:1,text:'Mise en place terrasse',prio:'h'},{id:2,text:'Rapport satisfaction clients',prio:'m'},{id:3,text:'Nettoyage poste',prio:'l'}],
+    3:[{id:1,text:'Réception légumes fournisseur',prio:'h'},{id:2,text:'Préparer marinade tajines x20',prio:'h'},{id:3,text:'Vérifier stock épices',prio:'m'},{id:4,text:'Nettoyage four + poste',prio:'h'}],
+    4:[{id:1,text:'Clôture caisse hier',prio:'h'},{id:2,text:'Vérification factures',prio:'m'},{id:3,text:'Rapport fin de journée',prio:'m'}],
+    5:[{id:1,text:'Préparer pâtes pastilla x15',prio:'h'},{id:2,text:'Mise en place poste chaud',prio:'h'},{id:3,text:'Inventaire réfrigérateur',prio:'m'},{id:4,text:'Nettoyage complet poste',prio:'h'}],
+  };
+  return (defaults[id]||[]).map(t=>({...t,done:false}));
+}
+
+function getDefaultShifts(id){
+  const defaults={
+    1:[{day:'Lundi',start:'10:00',end:'18:00',rest:false},{day:'Mardi',start:'10:00',end:'18:00',rest:false},{day:'Mercredi',start:null,end:null,rest:true},{day:'Jeudi',start:'10:00',end:'18:00',rest:false},{day:'Vendredi',start:'10:00',end:'22:00',rest:false},{day:'Samedi',start:'11:00',end:'22:00',rest:false},{day:'Dimanche',start:null,end:null,rest:true}],
+    2:[{day:'Lundi',start:'10:00',end:'18:00',rest:false},{day:'Mardi',start:null,end:null,rest:true},{day:'Mercredi',start:'10:00',end:'18:00',rest:false},{day:'Jeudi',start:'10:00',end:'18:00',rest:false},{day:'Vendredi',start:'10:00',end:'22:00',rest:false},{day:'Samedi',start:'11:00',end:'22:00',rest:false},{day:'Dimanche',start:'10:00',end:'18:00',rest:false}],
+    3:[{day:'Lundi',start:'08:00',end:'17:00',rest:false},{day:'Mardi',start:'08:00',end:'17:00',rest:false},{day:'Mercredi',start:'08:00',end:'17:00',rest:false},{day:'Jeudi',start:'08:00',end:'17:00',rest:false},{day:'Vendredi',start:'08:00',end:'17:00',rest:false},{day:'Samedi',start:'08:00',end:'18:00',rest:false},{day:'Dimanche',start:'08:00',end:'17:00',rest:false}],
+    4:[{day:'Lundi',start:'09:00',end:'17:00',rest:false},{day:'Mardi',start:'09:00',end:'17:00',rest:false},{day:'Mercredi',start:'09:00',end:'17:00',rest:false},{day:'Jeudi',start:null,end:null,rest:true},{day:'Vendredi',start:'09:00',end:'17:00',rest:false},{day:'Samedi',start:'10:00',end:'19:00',rest:false},{day:'Dimanche',start:null,end:null,rest:true}],
+    5:[{day:'Lundi',start:'08:00',end:'17:00',rest:false},{day:'Mardi',start:'08:00',end:'17:00',rest:false},{day:'Mercredi',start:null,end:null,rest:true},{day:'Jeudi',start:'08:00',end:'17:00',rest:false},{day:'Vendredi',start:'08:00',end:'17:00',rest:false},{day:'Samedi',start:'08:00',end:'18:00',rest:false},{day:'Dimanche',start:'08:00',end:'17:00',rest:false}],
+  };
+  return defaults[id]||DAYS.map(d=>({day:d,start:'09:00',end:'17:00',rest:false}));
+}
+
+// ═══════════════════════════════════════
+// TODAY SHIFT DISPLAY
+// ═══════════════════════════════════════
+function renderTodayShift(){
+  const shift=getTodayShift(current.id);
+  const card=document.getElementById('today-shift');
+  if(!shift||shift.rest){card.style.display='none';return;}
+  card.style.display='flex';
+  document.getElementById('shift-main').textContent=`Shift ${DAYS[new Date().getDay()===0?6:new Date().getDay()-1]}`;
+  document.getElementById('shift-sub').textContent=`${shift.start} → ${shift.end}`;
+  const hrs=shiftHours(shift);
+  document.getElementById('shift-hrs').textContent=`${hrs.toFixed(1)}h`;
+}
+
+// ═══════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════
+function tickClock(){
+  const now=new Date();
+  document.getElementById('live-clk').textContent=now.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const st=SH.staffStatus[current.id];
+  if(st.status==='in'&&sessionStart){
+    const diff=Math.floor((now-sessionStart)/1000)+todaySeconds;
+    const h=Math.floor(diff/3600),m=Math.floor((diff%3600)/60),s=diff%60;
+    document.getElementById('st-today').textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    st.todayMin=Math.floor(diff/60);
+    document.getElementById('st-net').textContent=netSalary(current).toLocaleString()+' MAD';
+  }
+}
+
+// ═══════════════════════════════════════
+// PONCTUALITÉ
+// ═══════════════════════════════════════
+function updatePonctDisplay(){
+  const score=calcPonct(current.id);
+  const scoreEl=document.getElementById('pb-score');
+  const fillEl=document.getElementById('pb-fill');
+  const topEl=document.getElementById('s-ponct');
+  if(score===null){scoreEl.textContent='N/A';fillEl.style.width='0%';topEl.textContent='--';return;}
+  scoreEl.textContent=score+'/100';topEl.textContent=score+'%';
+  fillEl.style.width=score+'%';
+  fillEl.style.background=score>=80?'var(--green)':score>=60?'var(--gold)':'var(--red)';
+}
+
+// ═══════════════════════════════════════
+// ACTIONS
+// ═══════════════════════════════════════
+function renderActionButtons(){
+  const st=SH.staffStatus[current.id];
+  const g=document.getElementById('act-grid');
+  const btns={
+    out:`<button class="abtn btn-in" onclick="clockIn()"><span class="ic">🟢</span>Arrivée</button>
+         <button class="abtn btn-sos" onclick="triggerSOS()"><span class="ic">🆘</span>SOS</button>
+         <button class="abtn btn-adv btn-wide" onclick="openSheet('adv')"><span class="ic">💰</span>Demande avance sur salaire</button>
+         <button class="abtn btn-cng btn-wide" onclick="openSheet('cng')"><span class="ic">🌴</span>Demande de congé</button>`,
+    in:`<button class="abtn btn-brk" onclick="startBreak()"><span class="ic">☕</span>Pause</button>
+        <button class="abtn btn-out" onclick="clockOut()"><span class="ic">🔴</span>Départ</button>
+        <button class="abtn btn-sos" onclick="triggerSOS()"><span class="ic">🆘</span>SOS</button>
+        <button class="abtn btn-adv btn-wide" onclick="openSheet('adv')"><span class="ic">💰</span>Demande avance sur salaire</button>
+        <button class="abtn btn-cng btn-wide" onclick="openSheet('cng')"><span class="ic">🌴</span>Demande de congé</button>`,
+    break:`<button class="abtn btn-res" onclick="resumeWork()"><span class="ic">▶️</span>Reprendre</button>
+           <button class="abtn btn-out" onclick="clockOut()"><span class="ic">🔴</span>Départ</button>
+           <button class="abtn btn-sos" onclick="triggerSOS()"><span class="ic">🆘</span>SOS</button>
+           <button class="abtn btn-adv btn-wide" onclick="openSheet('adv')"><span class="ic">💰</span>Demande avance sur salaire</button>
+           <button class="abtn btn-cng btn-wide" onclick="openSheet('cng')"><span class="ic">🌴</span>Demande de congé</button>`,
+  };
+  g.className=st.status==='out'?'act-grid g2':'act-grid g3';
+  g.innerHTML=btns[st.status]||btns.out;
+}
+
+function log(action,details=''){
+  if(!SH.monthlyLog[current.id])SH.monthlyLog[current.id]=[];
+  SH.monthlyLog[current.id].push({action,details,timestamp:new Date().toISOString(),date:today(),time:nowTime()});
+}
+function fire(type,data){
+  if(!window.NEWEDGE_EVENTS)window.NEWEDGE_EVENTS=[];
+  window.NEWEDGE_EVENTS.unshift({type,data,time:new Date().toISOString()});
+  window.dispatchEvent(new CustomEvent('newedge:staff',{detail:{type,data}}));
+}
+
+function clockIn(){
+  const st=SH.staffStatus[current.id],now=new Date();
+  sessionStart=now;st.status='in';st.since=now.toISOString();
+  const t=nowTime();
+  const shift=getTodayShift(current.id);
+  let isLate=false;
+  if(shift&&shift.start){
+    const [sh,sm]=shift.start.split(':').map(Number);
+    isLate=(now.getHours()*60+now.getMinutes())>(sh*60+sm+10);
+  } else {
+    isLate=now.getHours()>10||(now.getHours()===10&&now.getMinutes()>30);
+  }
+  const pont=SH.ponctualite[current.id];
+  if(isLate){pont.late++;const shMin=shift?parseInt(shift.start?.split(':')[0]||10)*60+parseInt(shift.start?.split(':')[1]||30):630;pont.totalLate+=(now.getHours()*60+now.getMinutes()-shMin);}
+  else pont.onTime++;
+  SH.clockHistory[current.id].unshift({action:'in',time:t,label:`Arrivée pointée${isLate?' ⚠️ Retard':''}`});
+  log('Arrivée',`Pointée à ${t}${isLate?' — retard':''}`);
+  renderActionButtons();renderStatusCard();renderHistory();updatePonctDisplay();
+  showConf('🟢','Arrivée enregistrée !',t,`Bonne journée ${current.fname} !${isLate?' ⚠️ Retard noté.':' 💪'}`);
+  fire('clock-in',{staffId:current.id,name:`${current.fname} ${current.lname}`,role:current.role,time:t,late:isLate,shift:shift?shift.start:null});
+  if(!IS_ONLINE) queueAction('clock-in',{staffId:current.id,name:current.fname+' '+current.lname,time:t,late:isLate});
+}
+
+function startBreak(){
+  const st=SH.staffStatus[current.id],now=new Date();
+  if(sessionStart)todaySeconds+=Math.floor((now-sessionStart)/1000);
+  breakStart=now;sessionStart=null;st.status='break';st.since=now.toISOString();
+  const t=nowTime();
+  SH.clockHistory[current.id].unshift({action:'break',time:t,label:'Pause commencée'});
+  log('Pause',`Début à ${t}`);
+  renderActionButtons();renderStatusCard();renderHistory();
+  showConf('☕','Pause enregistrée',t,'Profitez bien !');
+  fire('break',{staffId:current.id,name:`${current.fname} ${current.lname}`,time:t});
+}
+
+function resumeWork(){
+  const st=SH.staffStatus[current.id],now=new Date();
+  if(breakStart){const bd=Math.floor((now-breakStart)/60000);if(SH.clockHistory[current.id][0])SH.clockHistory[current.id][0].duration=`${bd} min`;}
+  sessionStart=now;breakStart=null;st.status='in';st.since=now.toISOString();
+  const t=nowTime();
+  SH.clockHistory[current.id].unshift({action:'in',time:t,label:'Reprise du travail'});
+  log('Reprise',`À ${t}`);
+  renderActionButtons();renderStatusCard();renderHistory();
+  showConf('▶️','Reprise enregistrée',t,'Bienvenue de retour !');
+  fire('resume',{staffId:current.id,name:`${current.fname} ${current.lname}`,time:t});
+}
+
+function clockOut(){
+  const tasks=SH.tasks[current.id]||[];
+  if(tasks.filter(t=>!t.done).length>0){switchTab('tasks');alert('⚠️ Complétez toutes vos tâches avant de partir.');return;}
+  if(!leaveUnlocked){switchTab('tasks');alert('⏳ Attendez la fin du délai de vérification (5 min).');return;}
+  _doClockOut();
+}
+
+function _doClockOut(){
+  const st=SH.staffStatus[current.id],now=new Date();
+  if(sessionStart)todaySeconds+=Math.floor((now-sessionStart)/1000);
+  const totalH=Math.floor(todaySeconds/3600),totalM=Math.floor((todaySeconds%3600)/60);
+  const dur=`${totalH}h${String(totalM).padStart(2,'0')}`;
+  // Check early departure
+  const shift=getTodayShift(current.id);
+  let earlyDep=false;
+  if(shift&&shift.end){const [eh,em]=shift.end.split(':').map(Number);earlyDep=(now.getHours()*60+now.getMinutes())<(eh*60+em-15);}
+  st.status='out';st.since=null;st.todayMin=Math.floor(todaySeconds/60);
+  sessionStart=null;breakStart=null;
+  const t=nowTime();
+  SH.clockHistory[current.id].unshift({action:'out',time:t,label:`Départ pointé${earlyDep?' ⚠️ Départ anticipé':''}`,duration:dur});
+  log('Départ',`À ${t}, durée: ${dur}${earlyDep?' — départ anticipé':''}`);
+  renderActionButtons();renderStatusCard();renderHistory();
+  showConf('🔴','Départ enregistré',t,`Au revoir ${current.fname} ! Session : ${dur}`);
+  fire('clock-out',{staffId:current.id,name:`${current.fname} ${current.lname}`,time:t,duration:dur,early:earlyDep,shiftEnd:shift?.end});
+  if(leaveTimer2)clearInterval(leaveTimer2);leaveUnlocked=false;leaveTimer2=null;
+}
+
+function renderStatusCard(){
+  const st=SH.staffStatus[current.id];
+  const card=document.getElementById('sc');
+  const map={
+    in:['sc-work','🟢','En service',`Arrivée à ${st.since?new Date(st.since).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):''} · Chrono en cours`],
+    break:['sc-break','☕','En pause',`Pause depuis ${st.since?new Date(st.since).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):''}`],
+    leave:['sc-cong','🌴','En congé','Congé approuvé par le manager'],
+    out:['sc-out','⚪','Hors service','Appuyez sur Arrivée pour commencer.']
+  };
+  const [cls,ic,main,sub]=map[st.status]||map.out;
+  card.className=`sc ${cls}`;
+  document.getElementById('sc-ic').textContent=ic;
+  document.getElementById('sc-main').textContent=main;
+  document.getElementById('sc-sub').textContent=sub;
+}
+
+function triggerSOS(){
+  const t=nowTime();
+  document.getElementById('sos-time').textContent=`Envoyé à ${t}`;
+  document.getElementById('sos-ov').classList.add('show');
+  log('SOS',`Déclenché à ${t}`);
+  fire('sos',{staffId:current.id,name:`${current.fname} ${current.lname}`,time:t});
+}
+function closeSOS(){document.getElementById('sos-ov').classList.remove('show');}
+
+// TASKS
+function renderTasks(){
+  const tasks=SH.tasks[current.id]||[];
+  const pl={h:'ph',m:'pm',l:'pl'},ll={h:'🔴 Urgent',m:'🟡 Normal',l:'🟢 Faible'};
+  document.getElementById('tasks-list').innerHTML=tasks.length===0?'<div style="text-align:center;padding:20px;color:rgba(255,255,255,.3);font-size:12px">Aucune tâche.</div>':tasks.map(t=>`<div class="task${t.done?' done':''}" onclick="toggleTask(${t.id})"><div class="tck">${t.done?'✓':''}</div><div class="ttxt">${t.text}</div><span class="tprio ${pl[t.prio]}">${ll[t.prio]}</span></div>`).join('');
+  const done=tasks.filter(t=>t.done).length,total=tasks.length,pct=total>0?Math.round(done/total*100):0;
+  document.getElementById('tprog').textContent=`${done} / ${total} tâches complétées`;
+  document.getElementById('pbar').style.width=pct+'%';
+  const pending=total-done;const badge=document.getElementById('tb-tasks');
+  pending>0?(badge.style.display='',badge.textContent=pending):badge.style.display='none';
+  checkLeaveUnlock(done,total);
+}
+
+function toggleTask(id){const t=(SH.tasks[current.id]||[]).find(x=>x.id===id);if(t){t.done=!t.done;log('Tâche',`"${t.text}" — ${t.done?'Complétée':'Démarquée'}`);}renderTasks();}
+
+function checkLeaveUnlock(done,total){
+  const btn=document.getElementById('lbtn'),cd=document.getElementById('lcd');
+  const delay=(SH.settings.leaveDelay||5)*60;
+  if(done===total&&total>0){
+    if(!leaveUnlocked&&!leaveTimer2){
+      let secs=delay;
+      const min=Math.floor(delay/60);
+      cd.textContent=`Départ dans ${min}:00 — vérification`;
+      leaveTimer2=setInterval(()=>{secs--;const m=Math.floor(secs/60),s=secs%60;cd.textContent=`Départ dans ${m}:${String(s).padStart(2,'0')}`;if(secs<=0){clearInterval(leaveTimer2);leaveTimer2=null;leaveUnlocked=true;btn.className='lbtn unlocked';btn.textContent='🟢 Pointer le départ';cd.textContent='✓ Départ autorisé.';}},1000);
+    }
+    if(leaveUnlocked){btn.className='lbtn unlocked';btn.textContent='🟢 Pointer le départ';cd.textContent='✓ Départ autorisé.';}
+  }else{
+    if(leaveTimer2){clearInterval(leaveTimer2);leaveTimer2=null;}
+    leaveUnlocked=false;
+    btn.className='lbtn locked';btn.textContent=`🔒 Départ verrouillé — ${total-done} tâche(s)`;
+    cd.textContent='Complétez toutes vos tâches pour déverrouiller.';
+  }
+}
+function tryLeave(){if((SH.tasks[current.id]||[]).filter(t=>!t.done).length>0){alert('⚠️ Complétez vos tâches.');return;}if(!leaveUnlocked){alert('⏳ Patientez…');return;}_doClockOut();}
+
+// NOTIFS
+function renderNotifs(){
+  const notifs=SH.notifications[current.id]||[];
+  const tc={warn:'warn',alert:'alert',info:'info',task:'task',msg:'msg',suspension:'suspension',advance:'approved',leave_ok:'leave_ok',leave_no:'leave_no',eval:'eval'};
+  const tl={warn:'⚠️ Avertissement',alert:'🚨 Alerte',info:'ℹ️ Info',task:'✅ Tâche',msg:'💬 Message',suspension:'🚫 Mise à pied',advance:'💰 Avance',leave_ok:'🌴 Congé approuvé',leave_no:'🌴 Congé refusé',eval:'⭐ Évaluation'};
+  document.getElementById('notifs-list').innerHTML=notifs.length===0?'<div style="text-align:center;padding:28px;color:rgba(255,255,255,.3);font-size:12px">Aucun message.</div>':notifs.map(n=>`<div class="req-card ${tc[n.type]||'info'}" onclick="markRead(${n.id})"><div class="req-hdr"><span class="req-type" style="color:${n.type==='alert'||n.type==='suspension'?'#E87070':n.type==='warn'?'var(--orange)':n.type==='task'?'var(--gold)':n.type==='eval'?'#A67FE8':n.type==='leave_ok'||n.type==='advance'?'#7EC87E':'var(--blue)'}">${!n.read?'<span class="udot"></span>':''}${tl[n.type]||'ℹ️ Message'}</span><span class="req-time">${n.time}</span></div><div class="req-txt">${n.text}</div><div class="req-detail">De : ${n.from}</div></div>`).join('');
+  updateNotifBadge();
+}
+function markRead(id){const n=(SH.notifications[current.id]||[]).find(x=>x.id===id);if(n)n.read=true;renderNotifs();}
+function updateNotifBadge(){
+  const unread=(SH.notifications[current.id]||[]).filter(n=>!n.read).length;
+  ['tb-notifs','bb-notifs','notif-cnt'].forEach(id=>{const el=document.getElementById(id);if(el){if(unread>0){el.style.display='';el.textContent=unread;}else el.style.display='none';}});
+}
+
+// PLANNING (from manager-set shifts — only current staff's own)
+function renderPlanning(){
+  const shifts=SH.settings.staffShifts[current.id]||[];
+  const dayIdx=new Date().getDay();
+  const todayName=DAYS[dayIdx===0?6:dayIdx-1];
+  document.getElementById('plan-content').innerHTML=shifts.map(p=>{
+    const isToday=p.day===todayName;
+    return`<div class="pday"><div class="pdl">${p.day}${isToday?' · Aujourd\'hui':''}</div>
+      <div class="psh ${p.rest?'rest':isToday?'today':''}">
+        <div class="pt"><span>${p.rest?'Repos':`${p.start} → ${p.end}`}</span><span class="ps-badge ${p.rest?'ps-rest':isToday?'ps-today':'ps-work'}">${p.rest?'Repos':isToday?'Aujourd\'hui':'Service'}</span></div>
+        ${!p.rest?`<div class="pd">Durée : ${shiftHours(p).toFixed(1)}h</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// HISTORY
+function renderHistory(){
+  const hist=SH.clockHistory[current.id]||[];
+  const dc={in:'var(--green)',break:'var(--gold)',out:'var(--terra)',resume:'var(--blue)'};
+  document.getElementById('hist-list').innerHTML=hist.length===0?'<div style="text-align:center;padding:20px;color:rgba(255,255,255,.3);font-size:12px">Aucun pointage aujourd\'hui.</div>':hist.map(h=>`<div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:10px 12px;margin-bottom:7px"><div style="width:7px;height:7px;border-radius:50%;background:${dc[h.action]||'var(--gray)'};flex-shrink:0"></div><div style="flex:1"><div style="font-size:12.5px;font-weight:600;color:#fff">${h.label}</div><div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:1px">${h.time}</div></div>${h.duration?`<div style="font-size:11px;font-weight:700;color:var(--gold)">${h.duration}</div>`:''}</div>`).join('');
+}
+
+// SALARY
+function renderSalary(){
+  if(!current)return;
+  const advances=SH.advances[current.id]||[];
+  const leaves=SH.leaves[current.id]||[];
+  const evals=SH.evaluations[current.id]||[];
+  const advDed=advances.filter(a=>a.status==='approved').reduce((s,a)=>s+a.amount,0);
+  const cngDed=leaves.filter(l=>l.status==='approved'&&l.type==='exceptional').reduce((s,l)=>s+(l.deduction||0),0);
+  const net=current.monthlySalary-(advDed+cngDed);
+  const avgScore=evals.length>0?(evals.reduce((s,e)=>s+e.score,0)/evals.length).toFixed(1):'—';
+  document.getElementById('ai-sal-txt').innerHTML=`<strong>Analyse IA :</strong> Brut ${current.monthlySalary.toLocaleString()} MAD. Déductions : ${(advDed+cngDed).toLocaleString()} MAD. <strong>Net : ${net.toLocaleString()} MAD</strong>. Éval. : ${avgScore}/10.`;
+  document.getElementById('sal-content').innerHTML=`
+    <div class="sal-grid">
+      <div class="sal-box sal-gold"><div class="sal-v" style="color:var(--gold)">${current.monthlySalary.toLocaleString()}</div><div class="sal-l">Brut mensuel</div></div>
+      <div class="sal-box sal-red"><div class="sal-v" style="color:var(--red)">${(advDed+cngDed).toLocaleString()}</div><div class="sal-l">Déductions</div></div>
+      <div class="sal-box sal-green"><div class="sal-v" style="color:#7EC87E">${net.toLocaleString()}</div><div class="sal-l">Net à percevoir</div></div>
+      <div class="sal-box sal-blue"><div class="sal-v" style="color:var(--blue)">${avgScore}<span style="font-size:12px">/10</span></div><div class="sal-l">Évaluation</div></div>
+    </div>
+    <div style="background:rgba(255,255,255,.04);border-radius:9px;padding:11px 13px;margin-bottom:12px;display:flex;justify-content:space-between"><span style="font-size:12px;color:rgba(255,255,255,.6)">Quota congé</span><span style="font-size:13px;font-weight:700;color:var(--gold)">${remainingLeaves(current.id)}j restants / ${(SH.settings.staffQuotas?.[current.id]??SH.settings.leaveQuota??30)}j</span></div>
+    <div style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Avances</div>
+    ${advances.length===0?'<div style="font-size:12px;color:rgba(255,255,255,.3);padding:8px 0">Aucune avance.</div>':advances.map(a=>`<div class="req-card ${a.status}"><div class="req-hdr"><span class="req-type" style="color:var(--gold)">💰 Avance</span><span class="req-time">${a.date}</span></div><div class="req-txt">${a.amount.toLocaleString()} MAD${a.reason?' — '+a.reason:''}</div><span class="req-badge ${a.status==='approved'?'rb-ok':a.status==='rejected'?'rb-no':'rb-pend'}">${a.status==='approved'?'✓ Accordée — déduite':a.status==='rejected'?'✗ Refusée':'⏳ En attente'}</span></div>`).join('')}
+    <div style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin:12px 0 8px">Congés</div>
+    ${leaves.length===0?'<div style="font-size:12px;color:rgba(255,255,255,.3);padding:8px 0">Aucun congé.</div>':leaves.map(l=>`<div class="req-card ${l.status}"><div class="req-hdr"><span class="req-type" style="color:${CNG_COLORS[l.type]}">${CNG_LABELS[l.type]}</span><span class="req-time">${l.dateStart}</span></div><div class="req-txt">${l.days}j · ${l.dateStart} → ${l.dateEnd}${l.reason?' — '+l.reason:''}</div>${l.type==='exceptional'&&l.status==='approved'?`<div class="req-detail">Déduction : ${l.deduction?.toLocaleString()} MAD</div>`:''}<span class="req-badge ${l.status==='approved'?'rb-ok':l.status==='rejected'?'rb-no':'rb-pend'}">${l.status==='approved'?'✓ Approuvé':l.status==='rejected'?'✗ Refusé':'⏳ En attente'}</span></div>`).join('')}
+    <div style="font-size:10.5px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:1px;text-transform:uppercase;margin:12px 0 8px">Évaluations</div>
+    ${evals.length===0?'<div style="font-size:12px;color:rgba(255,255,255,.3);padding:8px 0">Aucune évaluation.</div>':evals.map(e=>`<div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border-radius:9px;padding:10px 12px;margin-bottom:7px"><div style="flex:1"><div style="font-size:12.5px;color:#fff">${e.date}</div>${e.comment?`<div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:2px">"${e.comment}"</div>`:''}</div><div style="font-family:'DM Serif Display',serif;font-size:20px;color:${e.score>=8?'var(--green)':e.score>=6?'var(--gold)':'var(--red)'}">${e.score}<span style="font-size:11px">/10</span></div></div>`).join('')}`;
+}
+
+// ADVANCE SHEET
+function openSheet(type){
+  if(type==='adv'){
+    document.getElementById('adv-sal-v').textContent=current.monthlySalary.toLocaleString()+' MAD';
+    document.getElementById('adv-max-v').textContent=Math.floor(current.monthlySalary*.5).toLocaleString()+' MAD';
+    document.getElementById('adv-amt').value='';document.getElementById('adv-reason').value='';document.getElementById('adv-calc').textContent='';
+  }else{
+    const t=new Date().toISOString().split('T')[0];
+    document.getElementById('cng-start').value=t;document.getElementById('cng-end').value=t;
+    document.getElementById('cng-reason').value='';document.getElementById('cng-calc').textContent='';
+    document.getElementById('cng-warn').style.display='none';updateCngInfo();
+  }
+  document.getElementById(`sheet-${type}`).classList.add('open');
+}
+function closeSheet(type){document.getElementById(`sheet-${type}`).classList.remove('open');}
+document.querySelectorAll('.sheet-ov').forEach(el=>{el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('open');});});
+
+function calcAdv(){
+  const amt=parseFloat(document.getElementById('adv-amt').value)||0;
+  const max=Math.floor(current.monthlySalary*.5),el=document.getElementById('adv-calc');
+  if(!amt){el.textContent='';return;}
+  if(amt>max){el.innerHTML=`<span style="color:var(--red)">⚠️ Maximum : ${max.toLocaleString()} MAD</span>`;return;}
+  el.innerHTML=`<span style="color:#7EC87E">✓ Net restant : ${(current.monthlySalary-amt).toLocaleString()} MAD</span>`;
+}
+function submitAdv(){
+  const amt=parseFloat(document.getElementById('adv-amt').value)||0,max=Math.floor(current.monthlySalary*.5);
+  const reason=document.getElementById('adv-reason').value.trim();
+  if(!amt||amt<=0){alert('⚠️ Entrez un montant');return;}if(amt>max){alert(`⚠️ Maximum : ${max.toLocaleString()} MAD`);return;}
+  const req={id:Date.now(),amount:amt,reason,date:today(),status:'pending'};
+  SH.advances[current.id].push(req);log('Demande avance',`${amt.toLocaleString()} MAD`);
+  fire('advance-request',{staffId:current.id,name:`${current.fname} ${current.lname}`,amount:amt,reason,reqId:req.id});
+  closeSheet('adv');renderSalary();
+  showConf('⏳','Demande envoyée !','',`${amt.toLocaleString()} MAD — En attente manager.`);
+}
+function updateCngInfo(){
+  const type=document.getElementById('cng-type').value,warn=document.getElementById('cng-warn');
+  if(type==='exceptional'){warn.style.display='';warn.textContent='⚡ Congé exceptionnel : les jours seront déduits de votre salaire.';}
+  else if(type==='sick'){warn.style.display='';warn.textContent='🏥 Congé maladie : un justificatif médical sera demandé.';}
+  else warn.style.display='none';
+  calcCng();
+}
+function calcCng(){
+  const start=document.getElementById('cng-start').value,end=document.getElementById('cng-end').value;
+  const type=document.getElementById('cng-type').value,el=document.getElementById('cng-calc');
+  if(!start||!end){el.textContent='';return;}
+  const days=daysBetween(start,end);if(days<=0){el.innerHTML='<span style="color:var(--red)">⚠️ Dates invalides</span>';return;}
+  const rem=remainingLeaves(current.id);
+  if(type==='annual'&&days>rem){el.innerHTML=`<span style="color:var(--red)">⚠️ ${days}j demandés — seulement ${rem}j restants</span>`;return;}
+  if(type==='exceptional'){const ded=days*dailyRate(current);el.innerHTML=`<span style="color:var(--orange)">⚡ ${days}j · Déduction : ${ded.toLocaleString()} MAD</span>`;}
+  else el.innerHTML=`<span style="color:#7EC87E">✓ ${days} jour(s)${type==='annual'?' · '+rem+'j restants':''}</span>`;
+}
+function submitCng(){
+  const start=document.getElementById('cng-start').value,end=document.getElementById('cng-end').value;
+  const type=document.getElementById('cng-type').value,reason=document.getElementById('cng-reason').value.trim();
+  if(!start||!end){alert('⚠️ Sélectionnez les dates');return;}
+  const days=daysBetween(start,end);if(days<=0){alert('⚠️ Dates invalides');return;}
+  if(type==='annual'&&days>remainingLeaves(current.id)){alert(`⚠️ Seulement ${remainingLeaves(current.id)}j disponibles`);return;}
+  const ded=type==='exceptional'?days*dailyRate(current):0;
+  const req={id:Date.now(),type,dateStart:new Date(start).toLocaleDateString('fr-FR'),dateEnd:new Date(end).toLocaleDateString('fr-FR'),days,reason,deduction:ded,status:'pending',date:today()};
+  SH.leaves[current.id].push(req);log('Demande congé',`${CNG_LABELS[type]} ${days}j`);
+  fire('leave-request',{staffId:current.id,name:`${current.fname} ${current.lname}`,type,days,dateStart:req.dateStart,dateEnd:req.dateEnd,deduction:ded,reqId:req.id});
+  closeSheet('cng');renderSalary();document.getElementById('st-cng').textContent=remainingLeaves(current.id)+'j';
+  showConf('⏳','Demande envoyée !','',`${CNG_LABELS[type]} · ${days}j · En attente manager.`);
+}
+
+// AI INSIGHT
+function genAIInsight(){
+  const el=document.getElementById('ai-task-txt');
+  const ins={serveur:`Bonjour <strong>${current.fname}</strong> ! Vérifiez votre planning et complétez toutes les tâches avant le service.`,cuisine:`<strong>${current.fname}</strong> : vérifiez les stocks et préparez en avance pour un service fluide.`,caisse:`Bonjour <strong>${current.fname}</strong> ! Clôturez la caisse d'hier et vérifiez les factures en attente.`};
+  setTimeout(()=>{el.innerHTML=ins[current.role]||ins.serveur;},600);
+}
+
+// TABS
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));
+  document.querySelectorAll('.tc').forEach(t=>t.classList.remove('act'));
+  document.getElementById(`tab-${tab}`)?.classList.add('act');
+  document.getElementById(`tc-${tab}`)?.classList.add('act');
+  if(tab==='notifs'){(SH.notifications[current?.id]||[]).forEach(n=>n.read=true);renderNotifs();}
+  if(tab==='salary')renderSalary();
+  if(tab==='msg')sRenderMyMessages();
+  if(tab==='docs')sRenderMyDocs();
+}
+
+// CONFIRM
+function showConf(emoji,title,time,sub){
+  document.getElementById('ce').textContent=emoji;document.getElementById('ct').textContent=title;
+  document.getElementById('ctm').textContent=time;document.getElementById('cs').textContent=sub;
+  const ov=document.getElementById('conf-ov');ov.classList.add('show');
+  setTimeout(()=>ov.classList.remove('show'),2800);
+}
+
+// MANAGER MESSAGES LISTENER
+window.addEventListener('newedge:manager',e=>{
+  const{staffId,type,text,from,reqId,decision,evalScore,evalComment,evalDate}=e.detail;
+  if(!SH.notifications[staffId])SH.notifications[staffId]=[];
+  SH.notifications[staffId].unshift({id:Date.now(),type,text,from:from||'Manager',time:nowTime(),read:false});
+  if(type==='advance'&&reqId&&SH.advances[staffId]){const adv=SH.advances[staffId].find(a=>a.id===reqId);if(adv)adv.status=decision;}
+  if((type==='leave_ok'||type==='leave_no')&&reqId&&SH.leaves[staffId]){const lv=SH.leaves[staffId].find(l=>l.id===reqId);if(lv){lv.status=type==='leave_ok'?'approved':'rejected';if(type==='leave_ok'){const st2=SH.staffStatus[staffId];if(st2)st2.status='leave';}}}
+  if(type==='task'&&SH.tasks[staffId])SH.tasks[staffId].push({id:Date.now(),text,prio:'m',done:false});
+  if(type==='eval'&&evalScore){if(!SH.evaluations[staffId])SH.evaluations[staffId]=[];SH.evaluations[staffId].push({id:Date.now(),date:evalDate||today(),score:evalScore,comment:evalComment||''});}
+  if(type==='shift_update'&&SH.settings.staffShifts){SH.settings.staffShifts[staffId]=e.detail.shifts;}
+  if(type==='pin_update'){if(!SH.settings.staffPins)SH.settings.staffPins={};SH.settings.staffPins[staffId]=e.detail.pin;}
+  if(current&&current.id===staffId){renderNotifs();updateNotifBadge();if(type==='task')renderTasks();if(type==='advance'||type==='leave_ok'||type==='leave_no')renderSalary();if(type==='shift_update'){renderPlanning();renderTodayShift();}}
+});
+
+// SECURE LOGOUT
+function secureLogout(){
+  if(clockInterval)clearInterval(clockInterval);if(leaveTimer2)clearInterval(leaveTimer2);
+  leaveUnlocked=false;leaveTimer2=null;current=null;sessionStart=null;todaySeconds=0;
+  pinBuffer='';pinAttempts=0;
+  var main=document.getElementById('main-screen');
+  var sel=document.getElementById('sel-screen');
+  if(main) main.className='screen';
+  if(sel) sel.className='screen act';
+  renderSelector();
+}
+
+// ═══════════════════════════════════════════════════════
+// OFFLINE MODE — Queue actions when offline, sync on reconnect
+// ═══════════════════════════════════════════════════════
+var OFFLINE_QUEUE = JSON.parse(localStorage.getItem('newedge_offline_queue')||'[]');
+var IS_ONLINE = navigator.onLine;
+
+window.addEventListener('online', function(){
+  IS_ONLINE = true;
+  syncOfflineQueue();
+  showT('📶 Connexion rétablie — synchronisation...');
+});
+window.addEventListener('offline', function(){
+  IS_ONLINE = false;
+  showOfflineBanner(true);
+  showT('⚠️ Mode hors-ligne activé');
+});
+
+function showOfflineBanner(show){
+  var banner = document.getElementById('offline-banner');
+  if(!banner){
+    banner = document.createElement('div');
+    banner.id = 'offline-banner';
+    banner.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:999;background:var(--orange);color:#fff;text-align:center;padding:8px;font-size:12px;font-weight:600;display:none';
+    banner.textContent = '⚠️ Mode hors-ligne — Actions en attente de synchronisation';
+    document.body.appendChild(banner);
+  }
+  banner.style.display = show ? 'block' : 'none';
+}
+
+function queueAction(type, data){
+  var action = {type:type, data:data, timestamp:new Date().toISOString(), synced:false};
+  OFFLINE_QUEUE.push(action);
+  try{ localStorage.setItem('newedge_offline_queue', JSON.stringify(OFFLINE_QUEUE)); }catch(e){}
+  showOfflineBanner(true);
+}
+
+function syncOfflineQueue(){
+  if(!OFFLINE_QUEUE.length){ showOfflineBanner(false); return; }
+  var pending = OFFLINE_QUEUE.filter(function(a){return !a.synced;});
+  if(!pending.length){ showOfflineBanner(false); return; }
+  // Mark all as synced (will be real Firebase sync later)
+  OFFLINE_QUEUE.forEach(function(a){ a.synced = true; });
+  try{ localStorage.setItem('newedge_offline_queue', JSON.stringify(OFFLINE_QUEUE)); }catch(e){}
+  showT('✅ ' + pending.length + ' action(s) synchronisée(s)');
+  showOfflineBanner(false);
+}
+
+// Check on load
+if(!IS_ONLINE) showOfflineBanner(true);
+if(OFFLINE_QUEUE.filter(function(a){return !a.synced;}).length > 0) showOfflineBanner(true);
+
+// ═══ STAFF MESSAGERIE + CERTIFICATS ═══
+function sSendMessage(){
+  var u=current||currentUser;if(!u)return;
+  var el=document.getElementById('s-msg-input');
+  var text=el&&el.value.trim();
+  if(!text){alert('Ecrivez un message avant d\'envoyer.');return;}
+  if(!SH.staffMessages)SH.staffMessages={};
+  if(!SH.staffMessages[u.id])SH.staffMessages[u.id]=[];
+  var t=new Date();
+  var msg={id:Date.now(),text:text,date:t.toLocaleDateString('fr-FR'),time:t.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),readByManager:false};
+  SH.staffMessages[u.id].push(msg);
+  if(!SH.monthlyLog[u.id])SH.monthlyLog[u.id]=[];
+  SH.monthlyLog[u.id].push({action:'Message Manager',details:text.slice(0,80),timestamp:t.toISOString(),date:msg.date,time:msg.time});
+  if(el)el.value='';
+  sRenderMyMessages();
+  showConf('✅','Message envoyé !','','Le manager a recu votre message.');
+}
+function sRenderMyMessages(){
+  var u=current||currentUser;if(!u)return;
+  var msgs=(SH.staffMessages&&SH.staffMessages[u.id])||[];
+  var el=document.getElementById('s-my-messages');if(!el)return;
+  if(!msgs.length){el.innerHTML='<div style="text-align:center;padding:16px;color:rgba(255,255,255,.3);font-size:12px">Aucun message envoye.</div>';return;}
+  el.innerHTML=msgs.slice().reverse().map(function(m){
+    return '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:12px 14px;margin-bottom:8px;border-left:3px solid var(--blue)"><div style="font-size:12.5px;color:rgba(255,255,255,.85);line-height:1.6">'+m.text+'</div><div style="display:flex;justify-content:space-between;margin-top:6px"><div style="font-size:10px;color:rgba(255,255,255,.35)">'+m.date+' a '+m.time+'</div><span style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:7px;background:'+(m.readByManager?'rgba(61,122,90,.2)':'rgba(201,168,76,.15)')+';color:'+(m.readByManager?'#7EC87E':'var(--gold)')+'">'+( m.readByManager?'Lu':'En attente')+'</span></div></div>';
+  }).join('');
+}
+function sRequestDoc(docType,docLabel){
+  var u=current||currentUser;if(!u)return;
+  if(!SH.certRequests)SH.certRequests={};
+  if(!SH.certRequests[u.id])SH.certRequests[u.id]=[];
+  var already=SH.certRequests[u.id].find(function(r){return r.docType===docType&&r.status==='pending';});
+  if(already){alert('Demande deja en attente pour ce document.');return;}
+  var t=new Date();
+  SH.certRequests[u.id].push({id:Date.now(),docType:docType,docLabel:docLabel||docType,date:t.toLocaleDateString('fr-FR'),status:'pending'});
+  if(!SH.monthlyLog[u.id])SH.monthlyLog[u.id]=[];
+  SH.monthlyLog[u.id].push({action:'Demande document',details:docLabel||docType,timestamp:t.toISOString(),date:t.toLocaleDateString('fr-FR'),time:t.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
+  sRenderMyDocs();
+  showConf('📋','Demande envoyee !','','Le manager generera votre '+(docLabel||docType)+'.');
+}
+function sRenderMyDocs(){
+  var u=current||currentUser;if(!u)return;
+  var docs=(SH.certRequests&&SH.certRequests[u.id])||[];
+  var el=document.getElementById('s-my-docs');if(!el)return;
+  if(!docs.length){el.innerHTML='<div style="text-align:center;padding:16px;color:rgba(255,255,255,.3);font-size:12px">Aucune demande.</div>';return;}
+  el.innerHTML=docs.slice().reverse().map(function(d){
+    return '<div style="background:rgba(255,255,255,.05);border-radius:10px;padding:11px 13px;margin-bottom:8px;display:flex;align-items:center;gap:10px;border-left:3px solid '+(d.status==='done'?'var(--green)':'var(--orange)')+'"><div style="flex:1"><div style="font-size:12.5px;font-weight:600;color:#fff">'+d.docLabel+'</div><div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:1px">'+d.date+'</div></div><span style="font-size:10px;font-weight:700;padding:3px 9px;border-radius:8px;background:'+(d.status==='done'?'rgba(61,122,90,.2)':'rgba(230,126,34,.2)')+';color:'+(d.status==='done'?'#7EC87E':'var(--orange)')+'">'+( d.status==='done'?'Pret':'En attente')+'</span></div>';
+  }).join('');
+}
+
+</script>
+</body>
+</html>
