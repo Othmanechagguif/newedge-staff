@@ -1,0 +1,29 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "clockings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "staffId", "order": "ASCENDING" },
+        { "fieldPath": "timestamp", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "requests",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "evaluations",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "staffId", "order": "ASCENDING" },
+        { "fieldPath": "date", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

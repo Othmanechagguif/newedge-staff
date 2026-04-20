@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Restaurant data — only authenticated manager can read/write
+    match /restaurants/{restaurantId}/{document=**} {
+      allow read, write: if request.auth != null
+        && request.auth.token.email == 'manager@newedge.ma';
+    }
+
+    // Staff status — staff can update their own status
+    match /restaurants/{restaurantId}/staff/{staffId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+        && (request.auth.uid == staffId
+            || request.auth.token.email == 'manager@newedge.ma');
+    }
+
+    // Clockings — staff can create, manager can read all
+    match /restaurants/{restaurantId}/clockings/{clockingId} {
+      allow create: if request.auth != null;
+      allow read: if request.auth != null
+        && request.auth.token.email == 'manager@newedge.ma';
+    }
+
+    // Requests — staff creates, manager approves
+    match /restaurants/{restaurantId}/requests/{requestId} {
+      allow create: if request.auth != null;
+      allow read, update: if request.auth != null;
+    }
+
+    // Menu — public read, manager write
+    match /restaurants/{restaurantId}/menu/{itemId} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && request.auth.token.email == 'manager@newedge.ma';
+    }
+
+    // Tables — public read (for QR), manager write
+    match /restaurants/{restaurantId}/tables/{tableId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Notifications — staff reads their own, manager writes all
+    match /restaurants/{restaurantId}/notifications/{staffId}/{notifId} {
+      allow read: if request.auth != null
+        && (request.auth.uid == staffId
+            || request.auth.token.email == 'manager@newedge.ma');
+      allow write: if request.auth != null;
+    }
+  }
+}
