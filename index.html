@@ -281,69 +281,6 @@ input,select,textarea{font-family:inherit}
 .calc-result{font-size:12px;padding:7px 10px;border-radius:8px;min-height:18px;margin-top:5px}
 
 
-/* ── RESPONSIVE — Mobile / Tablet / Desktop ── */
-
-/* Mobile (default < 480px) — already styled */
-
-/* Large mobile / small tablet */
-@media(min-width:480px){
-  #wifi-screen,#sel-screen,#pin-screen,#main-screen{max-width:480px;margin:0 auto}
-  .bnav{max-width:480px;left:50%;transform:translateX(-50%);border-radius:20px 20px 0 0}
-}
-
-/* Tablet (768px+) */
-@media(min-width:768px){
-  body{display:flex;align-items:flex-start;justify-content:center;min-height:100vh;background:#111}
-  #wifi-screen,#sel-screen,#pin-screen{
-    max-width:520px;margin:40px auto;
-    border-radius:24px;min-height:auto;
-    box-shadow:0 24px 80px rgba(0,0,0,.5);
-    padding:48px 40px;
-  }
-  #main-screen{
-    max-width:520px;margin:0 auto;
-    border-radius:24px;
-    box-shadow:0 24px 80px rgba(0,0,0,.5);
-    overflow:hidden;
-  }
-  .bnav{
-    max-width:520px;left:50%;transform:translateX(-50%);
-    border-radius:0 0 24px 24px;
-  }
-  .s-top{padding:28px 22px 18px}
-  .stats-row{grid-template-columns:repeat(4,1fr)}
-  .act-grid{padding:10px 20px 0}
-  .tabs{padding:12px 20px 0}
-  .tc{max-height:340px}
-  .slist{max-width:480px}
-  .wifi-actions{max-width:380px}
-}
-
-/* Desktop (1024px+) */
-@media(min-width:1024px){
-  body{background:#0D0805;padding:40px 20px;align-items:center}
-  #wifi-screen,#sel-screen,#pin-screen{
-    max-width:440px;
-    margin:0 auto;
-    padding:52px 48px;
-  }
-  #main-screen{
-    max-width:440px;
-    margin:0 auto;
-    min-height:780px;
-    border-radius:40px;
-    box-shadow:0 40px 120px rgba(0,0,0,.7);
-  }
-  .bnav{
-    max-width:440px;
-    border-radius:0 0 40px 40px;
-    position:sticky;
-  }
-  .sel-logo{width:72px;height:72px;border-radius:20px}
-  .sel-brand{font-size:26px}
-  .slist{max-width:400px}
-  .pin-keypad{max-width:300px}
-}
 
 /* GEOFENCING */
 .geo-status{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--rsm);padding:11px 14px;margin-top:12px}
@@ -355,6 +292,68 @@ input,select,textarea{font-family:inherit}
 
 .fi-d{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;font-size:13.5px;color:#fff;outline:none;transition:all .2s;resize:vertical}
 .fi-d:focus{border-color:var(--gold)}.fi-d::placeholder{color:rgba(255,255,255,.3)}
+/* ════════════════════════════════════
+   RESPONSIVE — Staff App
+   ════════════════════════════════════ */
+
+/* ── All screens: center the app ── */
+@media(min-width:480px){
+  body{background:#0D0805;display:flex;justify-content:center;align-items:flex-start;min-height:100vh}
+  #wifi-screen,#sel-screen,#pin-screen,#main-screen{
+    width:100%;max-width:480px;margin:0 auto;
+  }
+  .bnav{max-width:480px;left:50%;transform:translateX(-50%);border-radius:0}
+}
+
+/* ── Tablet: app card effect ── */
+@media(min-width:768px){
+  body{align-items:center;padding:32px 20px}
+  #wifi-screen,#sel-screen,#pin-screen{
+    max-width:460px;
+    border-radius:28px;
+    box-shadow:0 32px 80px rgba(0,0,0,.6);
+    min-height:auto;
+    padding-bottom:40px;
+  }
+  #main-screen{
+    max-width:460px;
+    border-radius:28px;
+    box-shadow:0 32px 80px rgba(0,0,0,.6);
+    overflow:hidden;
+    min-height:700px;
+  }
+  .bnav{
+    max-width:460px;
+    border-radius:0 0 28px 28px;
+    position:sticky;bottom:0;
+    left:50%;transform:translateX(-50%);
+  }
+  .tc{max-height:300px}
+  .stats-row{grid-template-columns:repeat(4,1fr)}
+}
+
+/* ── Desktop: phone mockup style ── */
+@media(min-width:1024px){
+  body{padding:40px}
+  #wifi-screen,#sel-screen,#pin-screen{
+    max-width:420px;
+    border-radius:40px;
+    padding:52px 40px 48px;
+  }
+  #main-screen{
+    max-width:420px;
+    border-radius:44px;
+    box-shadow:0 60px 120px rgba(0,0,0,.8);
+    min-height:750px;
+  }
+  .bnav{
+    max-width:420px;
+    border-radius:0 0 44px 44px;
+  }
+  .slist{max-width:380px}
+  .wifi-actions{max-width:340px}
+  .pin-keypad{max-width:280px}
+}
 </style>
 </head>
 <body>
